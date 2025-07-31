@@ -11,6 +11,8 @@ import Foundation
  ```
  */
 
+var names: Set = ["Taejun", "Chanhee", "Seoyul", "Hojung", "Sookyung"]
+print(names)
 
 /*:
  ## Performing Set Operations
@@ -22,6 +24,17 @@ import Foundation
  ```
  */
 
+let oddDigits: Set = [1, 3, 5, 7, 9]
+let evenDigits: Set = [0, 2, 4, 6, 8]
+let allDigits: Set = oddDigits.union(evenDigits)
+
+print(oddDigits)
+print(evenDigits)
+print(allDigits)
+
+let someDigits: Set = [2, 5, 8, 0]
+let allDigits2: Set = evenDigits.union(someDigits)
+print(allDigits2)
 
 
 /*:
@@ -32,6 +45,19 @@ import Foundation
 
  */
 
+let setA: Set = [1, 2, 3, 4, 5]
+let setB: Set = [3, 4, 5, 6, 7]
 
+let intersection = setA.intersection(setB)
+let symmetricDifference = setA.symmetricDifference(setB)
+let union = setA.union(setB)
+let subtractingA = setA.subtracting(setB)
+let subtractingB = setB.subtracting(setA)
+
+print(intersection.sorted())
+print(symmetricDifference.sorted())
+print(union.sorted())
+print(subtractingA.sorted())
+print(subtractingB.sorted())
 
 //: [Next](@next)

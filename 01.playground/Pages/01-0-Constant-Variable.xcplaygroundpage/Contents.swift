@@ -19,6 +19,13 @@ import Foundation
  
  */
 
+let one = 1
+//one = 2
+
+var greeting = "Hello, playground"
+print(greeting)
+greeting = "Hello, swift"
+print(greeting)
 
 /*:
  > You can declare multiple constants or multiple variables on a single line, separated by commas
@@ -26,6 +33,14 @@ import Foundation
  > var two = 2, three = 3, four = 4
  */
 
+var two = 2, three = 3, four = 4
+print(two)
+print(three)
+print(four)
+
+//var two = 2
+//var three = 3
+//var four = 4
 
 
 /*:
@@ -34,7 +49,7 @@ import Foundation
  ```
  var five: Int
  five = 5
-
+ 
  var red, green, blue: Double
  red = 1
  green = 0
@@ -44,6 +59,17 @@ import Foundation
  ```
  */
 
+var five: Int
+five = 5
+
+var red, green, blue: Double
+
+red = 1
+green = 0
+blue = 0
+
+print(type(of: red))
+// Double
 
 /*:
  ## Naming Constants and Variables
@@ -59,6 +85,12 @@ import Foundation
  ```
  */
 
+let 🥑 = "avocado"
+let π = 3.14
+
+let avocado = "🥑"
+let pi = 3.14
+let twoPi = pi * 2
 
 
 /*:
@@ -70,16 +102,22 @@ import Foundation
  ```
  */
 
+print(avocado)
+print(pi)
+print(twoPi)
 
 /*:
  ## String Interpolation
  Swift uses string interpolation to include the name of a constant or variable as a placeholder in a longer string, and to prompt Swift to replace it with the current value of that constant or variable. Wrap the name in parentheses and escape it with a backslash before the opening parenthesis:
  ```
- print("Avocado emoji: \(avocado)")
- // Prints "Avocado emoji: 🥑"
+ print(pi)
+ print("pi: \(pi)")
+ // pi: 3.14
  ```
  */
 
+print(pi)
+print("pi: \(pi)")
 
 /*:
  ## Comment
@@ -91,15 +129,35 @@ import Foundation
  
  */
 
+// Comment
+
+/*
+ aaa
+ bbb
+ ccc
+ */
+
+/*
+ aaa
+ bbb
+ ccc
+ /*
+  ddd
+  eee
+  fff
+  */
+ */
 
 /*:
  ## Semicolon
  Unlike many other languages, Swift doesn’t require you to write a semicolon (;) after each statement in your code, although you can do so if you wish. However, semicolons are required if you want to write multiple separate statements on a single line:
  
- `let milk = "🥛"; print("Milk emoji: \(milk)")`
+ ```
+ let threePi = pi * 3; print("threePi: \(threePi)")
+ ```
  */
 
-
+let threePi = pi * 3; print("threePi: \(threePi)")
 
 /*:
  ## Integer
@@ -132,7 +190,20 @@ import Foundation
  
  */
 
+var minUnsignedInt8: UInt8 = UInt8.min
+var maxUnsignedInt8: UInt8 = UInt8.max
 
+print("Minimum unsigned 8-bit integer: \(minUnsignedInt8)")
+print("Maximum unsigned 8-bit integer: \(maxUnsignedInt8)")
+
+//minUnsignedInt8 = -1
+//maxUnsignedInt8 = 256
+
+var minInt: Int = Int.min
+var maxInt: Int = Int.max
+
+print("Minimum integer: \(minInt)")
+print("Maximum integer: \(maxInt)")
 
 /*:
  ## Floating-Point Numbers
@@ -155,8 +226,8 @@ import Foundation
  ```
  
  * callout(Max/MSP): Floating-point error
-
-![float-equal-compare](float-equal-compare.png)
+ 
+ ![float-equal-compare](float-equal-compare.png)
  
  > Bitwise operators can only be applied to integer types such as Int, UInt, Int8, UInt8, Int16, etc.
  > They do not work with floating-point types like Float or Double.
@@ -167,7 +238,16 @@ import Foundation
  
  */
 
+let a = 0.1
+let b = 0.2
+let c = 0.3
 
+a + b == c
+
+print("a + b: \(a + b)")
+print("c: \(c)")
+
+c == 0.3
 
 /*:
  ### Actual Value Calculation (Float16)
@@ -205,7 +285,10 @@ import Foundation
  ```
  */
 
+let x: Float16 = 0.1
+let y = Float16(bitPattern: 0b0_01011_1001100110)
 
+//let bitOne: UInt8 = 0b0000_0001
 
 /*:
  ### Binary Representation of Integers
@@ -218,6 +301,11 @@ import Foundation
  //❗️ Integer literal '255' overflows when stored into 'Int8'
  */
 
+var bitZero: Int8 = 0b0000_0000
+var bitOne: Int8 =  0b0000_0001
+var bitTwo: Int8 =  0b0000_0010
+
+//var bitMinusOne: Int8 = 0b1111_1111
 
 
 /*:
@@ -249,7 +337,30 @@ import Foundation
  ```
  */
 
+/// -5
+// 0000_0101
+// 1111_1010
+// 1111_1011
+// result: -5
+var bitMinusFive: Int8 = Int8(bitPattern: 0b1111_1011)
 
+/// -1
+// 0000_0001
+// 1111_1110
+// 1111_1111
+var bitMinusOne: Int8 = Int8(bitPattern: 0b1111_1111)
+
+/// -2
+// 0000_0010
+// 1111_1101
+// 1111_1110
+var bitMinusTwo: Int8 = Int8(bitPattern: 0b1111_1110)
+
+/// -16
+// 0001_0000
+// 1110_1111
+// 1111_0000
+var bitMinusSixteen: Int8 = Int8(bitPattern: 0b1111_0000)
 
 /*:
  > Bitwise shift keeps the sign bit to preserve the number’s sign.
@@ -259,13 +370,34 @@ import Foundation
  > For negative numbers, `>>` fills with `1`, `<<` fills with `0`.
  */
 
+var bitSixteen: Int8 = 0b0001_0000
 
+bitSixteen>>1
+// 0000_1000
 
+bitMinusSixteen>>1
+// 1111_0000
+// 0111_1000 ⁉️
+// 1011_1100 ⁉️
+// 1111_1000
+
+var bitTest: Int8 = Int8(bitPattern: 0b1011_1100)
+var bitMinusEight: Int8 = Int8(bitPattern: 0b1111_1000)
+
+bitMinusSixteen<<1
+var bitMinusThirtyTwo: Int8 = Int8(bitPattern: 0b1110_0000)
 /*:
  ## Type Safety & Type Inference
  Swift is a type-safe language. A type safe language encourages you to be clear about the types of values your code can work with. If part of your code requires a String, you can’t pass it an Int by mistake.
  */
 
+var name = "gwangyu"
+// String
 
+var year = 2025
+// Integer
+
+var fourPi = 3.14 * 4
+// Double
 
 //: [Next](@next)

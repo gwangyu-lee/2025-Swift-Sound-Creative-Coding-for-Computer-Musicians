@@ -20,15 +20,6 @@ import Foundation
  ```
  */
 
-var studentGrades: [String: String] = [
-    "Chanhee": "A",
-    "Hojung": "B",
-    "Jiwoo": "C"
-]
-
-print(studentGrades.keys)
-print(studentGrades.values)
-print(studentGrades["Chanhee"] ?? "없음")
 
 
 //: [Next](@next)

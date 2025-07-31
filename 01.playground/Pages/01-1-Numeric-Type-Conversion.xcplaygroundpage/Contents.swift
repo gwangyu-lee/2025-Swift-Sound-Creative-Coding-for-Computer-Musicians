@@ -19,6 +19,11 @@ import Foundation
  ```
  */
 
+let one: Int8 = 1
+let oneThousand: Int16 = 1000
+let oneThousandOne: Int16 = Int16(one) + oneThousand
+
+let intOneThousandOne: Int = Int(oneThousandOne)
 
 /*:
  ## Integer and Floating-Point Conversion
@@ -31,6 +36,14 @@ import Foundation
  ```
  */
 
+let two = 2
+// Integer
+
+let piMinusTwo = 3.14 - 2
+// Double
+
+let pi = Double(two) + piMinusTwo
+// Double
 
 /*:
  * Important:
@@ -42,6 +55,8 @@ import Foundation
  ```
  */
 
+let almostFour = 3.9999
+let absoulteAlmostFour = Int(almostFour)
 
 /*:
  ## Type Aliases
@@ -54,5 +69,8 @@ import Foundation
  
  */
 
+typealias AudioSample = UInt8
+var minAmplitude = AudioSample.min
+print(type(of: minAmplitude))
 
 //: [Next](@next)

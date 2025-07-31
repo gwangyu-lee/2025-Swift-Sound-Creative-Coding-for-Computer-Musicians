@@ -28,7 +28,7 @@ var one = 1
  ```
  */
 
-var onPointOne = 1.1
+var onePointOne = 1.1
 
 /*:
  ## Character literal
@@ -38,12 +38,15 @@ var onPointOne = 1.1
  ```
  */
 
+var name = "gwangyu"
+var initial = "G"
 
 /*:
  * Experiment:
  ```var marte = "18th"```
  */
 
+var marte = "18th"
 
 /*:
  > Numeric literals can contain extra formatting to make them easier to read.
@@ -53,6 +56,10 @@ var onPointOne = 1.1
  let justOverOneMillion = 1_000_000.000_000_1
  ```
  */
+
+let paddedDouble = 000123.456
+let oneMillion = 1_000_000
+let justOverOneMillion = 1_000_000.000_000_1
 
 
 //: [Next](@next)

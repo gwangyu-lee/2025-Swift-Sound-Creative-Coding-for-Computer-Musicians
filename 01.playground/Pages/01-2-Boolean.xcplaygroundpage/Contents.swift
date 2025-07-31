@@ -12,6 +12,7 @@ import Foundation
  ```
  */
 
-
+let iLoveMarte: Bool = true
+let iLoveMaxMsp: Bool = false
 
 //: [Next](@next)

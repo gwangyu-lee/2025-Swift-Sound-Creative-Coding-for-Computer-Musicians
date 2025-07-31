@@ -12,4 +12,17 @@ import Foundation
  ```
  */
 
+let name = ("gwangyu", "lee")
+print(name)
+
+print(name.0)
+print(name.1)
+
+let gwangyuInfo = ("gwangyu", 18, true)
+print(gwangyuInfo)
+
+print(gwangyuInfo.0)
+print(gwangyuInfo.1)
+print(gwangyuInfo.2)
+
 //: [Next](@next)

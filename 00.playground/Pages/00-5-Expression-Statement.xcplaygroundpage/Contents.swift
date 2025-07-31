@@ -11,6 +11,8 @@
  
  */
 
+var one = 1
+one + 1
 
 /*:
 
@@ -24,5 +26,9 @@
  ```
  
  */
+
+var two = 2
+var three = two + 1
+var greeting = "Hello, playground"
 
 //: [Next](@next)

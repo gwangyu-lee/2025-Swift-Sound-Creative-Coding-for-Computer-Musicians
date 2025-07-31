@@ -55,6 +55,7 @@
  ![scripting-name](scripting-name.png)
  */
 
+var one = 1
 
 /*:
  * Important:
@@ -67,6 +68,9 @@
  ```
  */
 
+//var var = 1
+var varNumber = 1
+var btnText = "Hello, World!"
 
 /*:
  * Important:
@@ -83,6 +87,10 @@
  ```
  */
 
+//var 1 = 1
+//var 1one = 1
+var two = 2
+var _two = 2
 
 /*:
  * Important:
@@ -95,6 +103,9 @@
  ```
  */
 
+var _1_000_000 = 1_000_000
+var pi = 3.14_159
+var _pi = 3.14_159
 
 /*:
  * Important:
@@ -107,5 +118,7 @@
  ```
  */
 
+//var gwan-gyu = "my name"
+//var dmadkr20@ = "password"
 
 //: [Next](@next)

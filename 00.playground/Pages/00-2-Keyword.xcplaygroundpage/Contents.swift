@@ -10,5 +10,6 @@
  ```
  */
 
+var one = 1
 
 //: [Next](@next)
