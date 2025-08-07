@@ -16,7 +16,12 @@ import Foundation
  
  */
 
+var count = 10
 
+while count < 5 {
+    count += 1
+    print("Count: \(count)")
+}
 
 
 /*:
@@ -31,5 +36,11 @@ import Foundation
  
  */
 
+var number = 10
+
+repeat {
+    number += 1
+    print("Number: \(number)")
+} while number < 5
 
 //: [Next](@next)
