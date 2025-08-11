@@ -25,13 +25,28 @@ import Foundation
 
  struct Oscillator: MakeSound {
      func playSine() {
-         print("Playing sine sound")
+         print("Playing sine wave")
      }
  }
  ```
  */
 
+protocol MakeSound {
+    func playSine()
+}
 
+struct Oscillator: MakeSound {
+    func playSine() {
+        print("Playing sine wave")
+    }
+    
+    func mute() {
+        print("Mute")
+    }
+}
 
+let oscillator = Oscillator()
+oscillator.playSine()
+oscillator.mute()
 
 //: [Next](@next)

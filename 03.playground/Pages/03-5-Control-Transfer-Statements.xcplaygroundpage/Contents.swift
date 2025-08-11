@@ -25,6 +25,12 @@ import Foundation
  ```
  */
 
+for number in 1...5 {
+    if number == 3 {
+        continue // Skip number 3
+    }
+    print("Number: \(number)")
+}
 
 
 /*:
@@ -43,7 +49,12 @@ import Foundation
  
  */
 
-
+for number in 1...5 {
+    if number == 4 {
+        break // Stop the loop completely
+    }
+    print("Count: \(number)")
+}
 
 /*:
  ## fallthrough
@@ -68,7 +79,19 @@ import Foundation
  
  */
 
+let value = 2
 
+switch value {
+case 1:
+    print("One")
+case 2:
+    print("Two")
+    fallthrough
+case 3:
+    print("Three")
+default:
+    print("Other")
+}
 
 /*:
  ## return
@@ -86,7 +109,15 @@ import Foundation
  
  */
 
+func greet(_ name: String) {
+    if name.isEmpty {
+        return // Exit early if no name
+    }
+    print("Hello, \(name)!")
+}
 
+greet("")
+greet("Gwangyu")
 
 /*:
  ## throw

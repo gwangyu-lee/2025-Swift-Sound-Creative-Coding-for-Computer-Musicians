@@ -22,6 +22,24 @@ import Foundation
  
  */
 
+enum MathError: Error {
+    case divisionByZero
+}
 
+func divide(_ numerator: Double, by denominator: Double) throws -> Double {
+    if denominator == 0 {
+        throw MathError.divisionByZero
+    }
+    return numerator / denominator
+}
+
+do {
+    let result = try divide(10, by: 0)
+    print("Result: \(result)")
+} catch MathError.divisionByZero {
+    print("Cannot divide by zero!")
+} catch {
+    print("Unexpected error: \(error)")
+}
 
 //: [Next](@next)

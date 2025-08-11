@@ -27,6 +27,13 @@ import Foundation
  ```
  */
 
-
+func greet(_ name: String?) {
+    guard let unwrappedName = name else {
+        print("❗️No name provided")
+        return
+    }
+    print("Hello, \(unwrappedName)!")
+}
+greet(nil)
 
 //: [Next](@next)

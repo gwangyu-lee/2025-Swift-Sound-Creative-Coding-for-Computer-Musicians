@@ -10,25 +10,44 @@ import Foundation
  ## Syntax
  ```
  struct NAME {
-    PROPERTIES
-    METHODS
+ PROPERTIES
+ METHODS
  }
  ```
  
  ```
  struct Point {
+ var x: Double
+ var y: Double
+ 
+ func description() -> String {
+ return "Point at (\(x), \(y))"
+ }
+ }
+ 
+ let origin = Point(x: 0.0, y: 0.0)
+ ```
+ */
+
+struct Point {
     var x: Double
     var y: Double
     
     func description() -> String {
         return "Point at (\(x), \(y))"
     }
- }
+    
+    func currentPosition() {
+        print("Current Position: x: \(x) y: \(y)")
+    }
+    
+}
 
- let origin = Point(x: 0.0, y: 0.0)
- ```
-*/
+let origin = Point(x: 0.0, y: 0.0)
+print(origin.description())
 
+origin.currentPosition()
 
+// print: "Current Position: x: 0.0 y: 0.0"
 
 //: [Next](@next)

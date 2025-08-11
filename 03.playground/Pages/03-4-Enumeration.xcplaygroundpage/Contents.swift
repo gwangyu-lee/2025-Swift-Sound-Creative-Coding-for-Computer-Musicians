@@ -10,37 +10,59 @@ import Foundation
  ## Syntax
  ```
  enum NAME {
-    case CASE_ONE
-    case CASE_TWO
+ case CASE_ONE
+ case CASE_TWO
  }
  ```
  
  ```
  enum Waveforms {
-     case sine
-     case saw
-     case rect
-     case square
-     case tri
+ case sine
+ case saw
+ case rect
+ case square
+ case tri
  }
-
+ 
  var myWaveform = Waveforms.sine
-
+ 
  switch myWaveform {
  case .sine:
-     print("Sine wave")
+ print("Sine wave")
  case .saw:
-     print("Sawtooth wave")
+ print("Sawtooth wave")
  case .rect:
-     print("Rectangular wave")
+ print("Rectangular wave")
  case .square:
-     print("Square wave")
+ print("Square wave")
  case .tri:
-     print("Triangle wave")
+ print("Triangle wave")
  }
  ```
  */
 
+enum Waveforms {
+    case sine
+    case saw
+    case rect
+    case square
+    case tri
+}
+
+let myWaveform: Waveforms = .saw
+
+switch myWaveform {
+case .sine:
+    print("Sine wave")
+case .saw:
+    print("Sawtooth wave")
+case .rect:
+    print("Rectangular wave")
+case .square:
+    print("Square wave")
+case .tri:
+    print("Triangle wave")
+}
 
 
 //: [Next](@next)

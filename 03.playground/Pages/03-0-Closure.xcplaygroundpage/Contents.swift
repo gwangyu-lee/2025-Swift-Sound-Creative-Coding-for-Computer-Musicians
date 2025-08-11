@@ -25,7 +25,11 @@ import Foundation
  }
  */
 
+let sayHi = {
+    print("Hi!")
+}
 
+sayHi()
 
 /*:
  ## Closure with Parameters and Return Value
@@ -37,7 +41,11 @@ import Foundation
  ```
  */
 
+let multiply = { (a: Int, b: Int) -> Int in
+    return a * b
+}
 
+print(multiply(10, 20))
 
 /*:
  ## Shorthand Closure with Type Annotation
@@ -49,6 +57,16 @@ import Foundation
  ```
  */
 
+let square: (Int) -> Int = { $0 * $0 }
+square(3)
 
+let add: (Int, Int) -> Int = { $0 + $1 }
+add(10, 20)
+
+func addFunction(_ a: Int, _ b: Int) -> Int {
+    return a + b
+}
+
+addFunction(10, 20)
 
 //: [Next](@next)
