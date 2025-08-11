@@ -2,7 +2,7 @@
 
 MARTE Lab, Graduate School of Digital Image & Contents, Dongguk University, Seoul    
 
-## Websites
+## Useful Links
 <a href="https://developer.apple.com/design/human-interface-guidelines/" target="_blank">Apple Design Guidelines</a>   
 <a href="https://developer.apple.com/sf-symbols/" target="_blank">SF Symbols</a>   
 
