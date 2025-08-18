@@ -3,7 +3,7 @@
 MARTE Lab, Graduate School of Digital Image & Contents, Dongguk University, Seoul    
 
 
-```siwfth
+```swift
 
 import SwiftUI
 
