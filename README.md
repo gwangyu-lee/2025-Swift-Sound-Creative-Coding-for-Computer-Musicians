@@ -1,6 +1,6 @@
 # 2025-Swift-Sound-Creative-Coding-for-Computer-Musicians
 
-MARTE Lab, Graduate School of Digital Image & Contents, Dongguk University, Seoul    
+MARTE Lab, Dept. of Multimedia, Dongguk University, Seoul    
 
 ## Useful Links
 <a href="https://developer.apple.com/design/human-interface-guidelines/" target="_blank">Apple Design Guidelines</a>   
