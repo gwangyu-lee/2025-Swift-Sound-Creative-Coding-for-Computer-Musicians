@@ -75,6 +75,8 @@ class SensorManager: NSObject, ObservableObject, CLLocationManagerDelegate {
     // CLLocationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
         self.heading = newHeading.trueHeading
+        sendOSCMessage(address: "/compass", value: Float(newHeading.trueHeading))
         print("Heading:", newHeading.trueHeading)
     }
 }
+

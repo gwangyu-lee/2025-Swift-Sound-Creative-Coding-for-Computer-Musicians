@@ -31,8 +31,8 @@ struct TouchView: View {
                             .onChanged { event in
                                 dragX = event.location.x
                                 dragY = event.location.y
-                                sendOSCMessage(address: "/dragX", value: Float(event.location.x))
-                                sendOSCMessage(address: "/dragY", value: Float(event.location.y))
+                                sendOSCMessage(address: "/dragX", value: Float(dragX))
+                                sendOSCMessage(address: "/dragY", value: Float(dragY))
                                 
                                 print("Red: Drag: x:\(event.location.x), y:\(event.location.y)")
                             }
@@ -56,6 +56,8 @@ struct TouchView: View {
                             .onEnded { event in
                                 tapX = event.location.x
                                 tapY = event.location.y
+                                sendOSCMessage(address: "/tapX", value: Float(tapX))
+                                sendOSCMessage(address: "/tapY", value: Float(tapY))
                                 print("Blue: Tap: x:\(event.location.x), y:\(event.location.y)")
                             }
                     )
