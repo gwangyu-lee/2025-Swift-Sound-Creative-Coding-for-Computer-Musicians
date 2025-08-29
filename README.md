@@ -8,4 +8,5 @@ MARTE Lab, Graduate School of Digital Image & Contents, Dongguk University, Seou
 
 ## Books
 Apple Inc., *The Swift Programming Language(Swift 5.7)*, 2014    
-KxCoding, *Hello, Swift*, 2019
+KxCoding, *Hello, Swift*, 2019    
+Don Norman, *The Design of Everyday Things*, 2013
