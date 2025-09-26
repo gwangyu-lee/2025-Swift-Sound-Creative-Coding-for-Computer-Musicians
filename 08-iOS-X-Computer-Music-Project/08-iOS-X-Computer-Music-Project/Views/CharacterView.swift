@@ -96,6 +96,9 @@ struct CharacterView: View {
                     MouthView(frequency: frequency, amplitude: amplitude)
                         .offset(y: 50)
                 }
+                .onDisappear {
+                    SynthManagerTJ.shared.stop()
+                }
                 .onTapGesture {
                     isOn.toggle()
                     if isOn {
