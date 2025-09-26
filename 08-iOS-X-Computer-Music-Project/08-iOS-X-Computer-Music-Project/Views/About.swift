@@ -30,7 +30,7 @@ struct About: View {
                 
                 Text("매미 - 김연호 \n Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
                 
-                Text("Annoying kid - 김태준 \n 아이의 짜증을 표현하였습니다. \n 맘껏 짜증내시길")
+                Text("Annoying kid - 김태준 \n 아이의 짜증을 표현하였습니다. \n 어른들도 때론 아이처럼 짜증내고 싶죠,,, \n 맘껏 짜증내시길")
                 
                 Text("NAME \n Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
                 
