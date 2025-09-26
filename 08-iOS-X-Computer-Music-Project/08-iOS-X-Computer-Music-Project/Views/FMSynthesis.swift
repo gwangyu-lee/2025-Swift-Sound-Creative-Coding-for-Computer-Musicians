@@ -4,13 +4,19 @@
 //
 //  Created by Gwangyu Lee on 8/18/25.
 //
+//
+//  ContentView.swift
+//  06-Computer-Music
+//
+//  Created by Gwangyu Lee on 8/18/25.
+//
 
 import SwiftUI
 
 struct FMSynthesis: View {
     
     @State private var frequency: Double = 440
-    @State private var fmIndex: Double = 0
+    @State private var fmIndex: Double = 4
     @State private var noteOnOff: Bool = false
     
     @State private var selectedWave: String = "sine"
@@ -18,55 +24,51 @@ struct FMSynthesis: View {
     
     var body: some View {
         
-        VStack(spacing: 20) {
-            Text("What is FM Synthesis?")
-                .font(.largeTitle)
-                .fontWeight(.bold)
-            
-            
-//            HStack() {
-//                VStack() {
-//                    Text("Sine · 5 Hz")
+        Text("What is FM Synthesis?")
+            .font(.largeTitle)
+            .fontWeight(.bold)
+        
+        
+        List {
+            HStack() {
+                VStack() {
+                    Text("Carrier · 8 Hz")
 //                        .font(.headline)
-//                    SineOscilloscopeView(demoFrequency: 5.0, demoTimeWindow: 1.0, demoSamples: 600)
-//                        .frame(height: 120)
-//                }
-//                
-//                VStack() {
-//                    Text("Sine · 1 Hz")
+                    SineOscilloscopeView(demoFrequency: 8.0, demoTimeWindow: 1.0, demoSamples: 600)
+                        .frame(height: 120)
+                }
+                
+                VStack() {
+                    Text("Modulator · 1 Hz")
 //                        .font(.headline)
-//                    SineOscilloscopeView(demoFrequency: 1.0, demoTimeWindow: 1.0, demoSamples: 600)
-//                        .frame(height: 120)
-//                }
-//            }
-//            
-//            VStack(alignment: .leading, spacing: 6) {
-//                Text("Frequency Modulated by 1Hz Sine (1~9 Hz)")
+                    SineOscilloscopeView(demoFrequency: 1.0, demoTimeWindow: 2.0, demoSamples: 600)
+                        .frame(height: 120)
+                }
+            }
+            
+            // FM synthesis 결과
+            VStack() {
+                Text("FM Result (8Hz ± 4Hz)")
 //                    .font(.headline)
-//                ModulatedFrequencyView()
-//                    .frame(height: 120)
-//            }
-
-
-            // Frequency
-            GroupBox{
-                Text("Frequency: \(Int(frequency)) Hz")
-                Slider(value: $frequency, in: 440...880)
-                    .onChange(of: frequency) { _, newValue in
-                        SynthManager.shared.updateFrequency(frequency: newValue)
-                        print("Slider: Frequency: \(newValue)")
-                    }
+                FMOscilloscopeView()
+                    .frame(height: 120)
             }
             
-            // FM Index
-            GroupBox{
-                Text("FM Index: \(String(format: "%.2f", fmIndex))")
-                Slider(value: $fmIndex, in: 0...10)
-                    .onChange(of: fmIndex) { _, newValue in
-                        SynthManager.shared.updateFMIndex(newValue)
-                        print("Slider: FM Index: \(newValue)")
-                    }
-            }
+            Text("Frequency: \(Int(frequency)) Hz")
+                .listRowSeparator(.hidden)
+            Slider(value: $frequency, in: 440...880)
+                .onChange(of: frequency) { _, newValue in
+                    SynthManager.shared.updateFrequency(frequency: newValue)
+                    print("Slider: Frequency: \(newValue)")
+                }
+            
+            Text("FM Index: \(String(format: "%.2f", fmIndex))")
+                .listRowSeparator(.hidden)
+            Slider(value: $fmIndex, in: 0...10)
+                .onChange(of: fmIndex) { _, newValue in
+                    SynthManager.shared.updateFMIndex(newValue)
+                    print("Slider: FM Index: \(newValue)")
+                }
             
             // Wave Picker
             Picker("", selection: $selectedWave) {
@@ -79,6 +81,8 @@ struct FMSynthesis: View {
                 SynthManager.shared.selectedWave = newValue
                 print("Picker: Waveform: \(newValue)")
             }
+            
+            
             
             // Note On Off
             Toggle("Note On/Off", isOn: $noteOnOff)
@@ -94,6 +98,7 @@ struct FMSynthesis: View {
                 }
             
         }
+        .listStyle(.plain)
         .padding()
         .onDisappear {
             if noteOnOff {
@@ -105,12 +110,14 @@ struct FMSynthesis: View {
     }
 }
 
-
-struct SineOscilloscopeView: View {
-    var demoFrequency: Double
-    var demoTimeWindow: Double = 1.0
-    var demoSamples: Int = 512
-    var demoAmplitude: Double = 0.9 // 뷰 높이에 대한 비율
+// FM Synthesis 결과 파형을 보여주는 뷰
+struct FMOscilloscopeView: View {
+    var carrierFrequency: Double = 8.0  // 중심 주파수
+    var modulatorFrequency: Double = 1.0 // 변조 주파수
+    var fmIndex: Double = 6.0  // FM Index
+    var demoTimeWindow: Double = 2.0  // 2초 윈도우로 변조를 명확히 보여줌
+    var demoSamples: Int = 1200
+    var demoAmplitude: Double = 0.8
     
     var body: some View {
         GeometryReader { geo in
@@ -121,15 +128,23 @@ struct SineOscilloscopeView: View {
                 let centerY = h / 2.0
                 let amp = (h / 2.0) * demoAmplitude
                 
-                // 샘플을 순회해서 Path 구성
+                // FM synthesis: instantaneous frequency = carrier + deviation * cos(modulator_phase)
+                let deviation = fmIndex * modulatorFrequency
+                
                 let path = Path { p in
                     for i in 0..<demoSamples {
                         let x = Double(i) / Double(demoSamples - 1)
-                        // map x -> sample time
                         let sampleTime = t - (1.0 - x) * demoTimeWindow
                         
-                        // value: 순수 사인파
-                        let value = sin(2.0 * .pi * demoFrequency * sampleTime)
+                        // Modulator signal
+                        let modulatorPhase = 2.0 * .pi * modulatorFrequency * sampleTime
+                        
+                        // FM signal: phase(t) = 2π * carrier * t + (deviation/modulator) * sin(modulator_phase)
+                        let carrierPhase = 2.0 * .pi * carrierFrequency * sampleTime
+                        let modulationPhase = (deviation / modulatorFrequency) * sin(modulatorPhase)
+                        let totalPhase = carrierPhase + modulationPhase
+                        
+                        let value = sin(totalPhase)
                         
                         let px = x * w
                         let py = centerY - value * amp
@@ -143,14 +158,13 @@ struct SineOscilloscopeView: View {
                 }
                 
                 ZStack {
-                    // 배경 그리드
                     GridBackgroundView()
                         .frame(width: geo.size.width, height: geo.size.height)
                     
                     path
                         .strokedPath(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
                         .shadow(color: Color.black.opacity(0.2), radius: 1, x: 0, y: 1)
-                        .foregroundColor(.accentColor)
+                        .foregroundColor(.blue)
                 }
             }
         }
@@ -158,13 +172,10 @@ struct SineOscilloscopeView: View {
     }
 }
 
-// Frequency Modulation Sine Oscilloscope
-struct ModulatedFrequencyView: View {
-    var minFreq: Double = 1.0     // 최소 Frequency
-    var maxFreq: Double = 9.0     // 최대 Frequency
-    var modFrequency: Double = 1.0 // 변조 주파수 1Hz
-    var demoTimeWindow: Double = 10.0 // 시각화 시간 (초)
-    var demoSamples: Int = 100   // 샘플 수
+struct SineOscilloscopeView: View {
+    var demoFrequency: Double
+    var demoTimeWindow: Double = 1.0
+    var demoSamples: Int = 512
     var demoAmplitude: Double = 0.9
     
     var body: some View {
@@ -181,12 +192,7 @@ struct ModulatedFrequencyView: View {
                         let x = Double(i) / Double(demoSamples - 1)
                         let sampleTime = t - (1.0 - x) * demoTimeWindow
                         
-                        // 1Hz 사인으로 Frequency 변조
-                        let freqMod = (sin(2.0 * .pi * modFrequency * sampleTime) + 1.0) / 2.0
-                        let currentFreq = minFreq + freqMod * (maxFreq - minFreq)
-                        
-                        // 시각화용 사인파
-                        let value = sin(2.0 * .pi * currentFreq * sampleTime)
+                        let value = sin(2.0 * .pi * demoFrequency * sampleTime)
                         
                         let px = x * w
                         let py = centerY - value * amp
@@ -205,7 +211,8 @@ struct ModulatedFrequencyView: View {
                     
                     path
                         .strokedPath(StrokeStyle(lineWidth: 2, lineCap: .round, lineJoin: .round))
-                        .foregroundColor(.blue)
+                        .shadow(color: Color.black.opacity(0.2), radius: 1, x: 0, y: 1)
+                        .foregroundColor(.accentColor)
                 }
             }
         }
@@ -213,11 +220,6 @@ struct ModulatedFrequencyView: View {
     }
 }
 
-// 기존 GridBackgroundView 재사용 가능
-
-
-
-/// 간단한 배경 그리드
 struct GridBackgroundView: View {
     var body: some View {
         GeometryReader { g in
