@@ -11,10 +11,10 @@ struct MySplitView: View {
     
     @StateObject var sensorManager = SensorManager()
     
-    @State private var selectedView: String? = "default"
+    @State private var selectedView: String? = "FM Synthesis"
     
     // 배열, 뷰 목록
-    let views = ["Cicadidae", "AccelView", "AngleView", "CompassView", "GyroView", "TouchView", "OSCSettingsView", "About"]
+    let views = ["FM Synthesis", "Cicadidae", "OSC Settings", "About"]
     
     var body: some View {
         NavigationSplitView {
@@ -29,18 +29,10 @@ struct MySplitView: View {
         } detail: {
             if let selectedView = selectedView {
                 switch selectedView {
+                case "FM Synthesis":
+                    FMSynthesis()
                 case "Cicadidae":
                     Cicadidae()
-                case "AccelView":
-                    AccelView(sensorManager: sensorManager)
-                case "AngleView":
-                    AngleView(sensorManager: sensorManager)
-                case "CompassView":
-                    CompassView(sensorManager: sensorManager)
-                case "GyroView":
-                    GyroView(sensorManager: sensorManager)
-                case "TouchView":
-                    TouchView()
                 case "OSCSettingsView":
                     OSCSettingsView()
                 case "About":
