@@ -10,11 +10,12 @@ import SwiftUI
 struct MySplitView: View {
     
     @StateObject var sensorManager = SensorManager()
+    @StateObject var sensorManagerTJ = SensorManagerTJ()
     
     @State private var selectedView: String? = "FM Synthesis"
     
     // 배열, 뷰 목록
-    let views = ["FM Synthesis", "Cicadidae", "OSC Settings", "About"]
+    let views = ["FM Synthesis", "Cicadidae", "Annoying Kid", "OSC Settings", "About"]
     
     var body: some View {
         NavigationSplitView {
@@ -33,6 +34,8 @@ struct MySplitView: View {
                     FMSynthesis()
                 case "Cicadidae":
                     Cicadidae()
+                case "Annoying Kid":
+                    CharacterView(sensorManager: sensorManagerTJ)
                 case "OSCSettingsView":
                     OSCSettingsView()
                 case "About":
