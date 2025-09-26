@@ -31,7 +31,7 @@ struct CharacterView: View {
     private func mappedFMIndex(from heading: Double) -> Double {
         // 선형 매핑: heading 값을 0과 15 사이로 정규화
         let minIndex = 0.0
-        let maxIndex = 15.0
+        let maxIndex = 30.0
         let headingNorm = heading / 360.0 // 0 ~ 360 -> 0 ~ 1
         return minIndex + (maxIndex - minIndex) * headingNorm.clamped(to: 0...1)
     }
