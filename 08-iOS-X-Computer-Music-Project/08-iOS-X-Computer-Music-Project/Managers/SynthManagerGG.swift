@@ -1,7 +1,7 @@
 import AVFoundation
 
-class SynthManager {
-    static let shared = SynthManager()
+class SynthManagerGG {
+    static let shared = SynthManagerGG()
     
     private var engine = AVAudioEngine()
     private var sourceNode: AVAudioSourceNode!

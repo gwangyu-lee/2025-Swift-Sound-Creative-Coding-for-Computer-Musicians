@@ -74,7 +74,7 @@ struct Cicadidae: View {
     @State private var speedIndex: Double = 0.0
     @State private var speedIndexBeforeDrag: Double = 0.0
     @State private var animationResponse: Double = 0.5
-    private let synth = SynthManager.shared
+    private let synth = SynthManagerYH.shared
     
     var body: some View {
         VStack(spacing: 20) {
@@ -209,6 +209,9 @@ struct Cicadidae: View {
     }
     
     private func setupSynthesizer() {
+        self.synth.updateModulatorFrequency(220)
+        print("View: Cicadidae.swift")
+        
         self.synth.selectedWave = "sawtooth"
         self.synth.updateEnvelope(attack: 0.05, decay: 0.1, sustain: 0.9, release: 0.1)
         

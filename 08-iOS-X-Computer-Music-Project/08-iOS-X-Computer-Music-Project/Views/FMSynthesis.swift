@@ -73,7 +73,7 @@ struct FMSynthesis: View {
                 .listRowSeparator(.hidden)
             Slider(value: $frequency, in: 440...880)
                 .onChange(of: frequency) { _, newValue in
-                    SynthManager.shared.updateFrequency(frequency: newValue)
+                    SynthManagerGG.shared.updateFrequency(frequency: newValue)
                     print("Slider: Frequency: \(newValue)")
                 }
             
@@ -83,12 +83,12 @@ struct FMSynthesis: View {
                 .onAppear {
                     // Sync normalized value with current frequency
                     modFrequencyNorm = invLogMap(modFrequency)
-                    SynthManager.shared.updateModulatorFrequency(modFrequency)
+                    SynthManagerGG.shared.updateModulatorFrequency(modFrequency)
                 }
                 .onChange(of: modFrequencyNorm) { _, newNorm in
                     let actual = logMap(newNorm)
                     modFrequency = actual
-                    SynthManager.shared.updateModulatorFrequency(actual)
+                    SynthManagerGG.shared.updateModulatorFrequency(actual)
                     print("Slider (Log): Modulator Frequency: \(String(format: "%.3f", actual)) Hz")
                 }
             
@@ -96,10 +96,10 @@ struct FMSynthesis: View {
                 .listRowSeparator(.hidden)
             Slider(value: $fmIndex, in: 1...10)
                 .onAppear {
-                    SynthManager.shared.updateFMIndex(fmIndex)
+                    SynthManagerGG.shared.updateFMIndex(fmIndex)
                 }
                 .onChange(of: fmIndex) { _, newValue in
-                    SynthManager.shared.updateFMIndex(newValue)
+                    SynthManagerGG.shared.updateFMIndex(newValue)
                 }
             
             
@@ -110,8 +110,11 @@ struct FMSynthesis: View {
                 }
             }
             .pickerStyle(.segmented)
+            .onAppear {
+                SynthManagerGG.shared.selectedWave = selectedWave
+            }
             .onChange(of: selectedWave) { _, newValue in
-                SynthManager.shared.selectedWave = newValue
+                SynthManagerGG.shared.selectedWave = newValue
                 print("Picker: Waveform: \(newValue)")
             }
             
@@ -119,10 +122,10 @@ struct FMSynthesis: View {
             Toggle("Note On/Off", isOn: $noteOnOff)
                 .onChange(of: noteOnOff) { _, newValue in
                     if newValue {
-                        SynthManager.shared.noteOn(frequency: frequency)
+                        SynthManagerGG.shared.noteOn(frequency: frequency)
                         print("Toggle: Note On")
                     } else {
-                        SynthManager.shared.noteOff()
+                        SynthManagerGG.shared.noteOff()
                         print("Toggle: Note Off")
                     }
                 }
@@ -130,10 +133,14 @@ struct FMSynthesis: View {
         }
         .listStyle(.plain)
         .padding()
+        .onAppear {
+            SynthManagerGG.shared.updateVibratoRate(0)
+            print("View: FMSynthesis.swift")
+        }
         .onDisappear {
             if noteOnOff {
                 noteOnOff = false
-                SynthManager.shared.noteOff()
+                SynthManagerGG.shared.noteOff()
                 print("View disappeared: Note Off")
             }
         }
