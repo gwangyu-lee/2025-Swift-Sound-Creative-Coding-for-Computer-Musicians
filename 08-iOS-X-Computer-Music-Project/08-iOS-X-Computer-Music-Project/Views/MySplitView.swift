@@ -15,7 +15,7 @@ struct MySplitView: View {
     @State private var selectedView: String? = "FM Synthesis"
     
     // 배열, 뷰 목록
-    let views = ["FM Synthesis", "Cicadidae", "Annoying Kid", "OSC Settings", "About"]
+    let views = ["FM Synthesis", "Cicadidae", "Annoying Kid", "Settings", "About"]
     
     var body: some View {
         NavigationSplitView {
@@ -36,7 +36,7 @@ struct MySplitView: View {
                     Cicadidae()
                 case "Annoying Kid":
                     CharacterView(sensorManager: sensorManagerTJ)
-                case "OSCSettingsView":
+                case "Settings":
                     OSCSettingsView()
                 case "About":
                     About()

@@ -18,11 +18,11 @@ struct FMSynthesis: View {
     @State private var frequency: Double = 440
     @State private var modFrequency: Double = 0.0
     @State private var modFrequencyNorm: Double = 0.0
-    @State private var fmIndex: Double = 4
+    @State private var fmIndex: Double = 1
     @State private var noteOnOff: Bool = false
     
     @State private var selectedWave: String = "sine"
-    @State private var wave = ["sine", "sawtooth", "triangle", "rectangle", "noise"]
+    @State private var wave = ["sine", "sawtooth", "triangle", "rectangle"]
     
     // Log mapping
     @State private var modFMinPositive: Double = 2.0
@@ -33,8 +33,7 @@ struct FMSynthesis: View {
         Text("What is FM Synthesis?")
             .font(.largeTitle)
             .fontWeight(.bold)
-        
-        
+
         List {
             HStack() {
                 VStack() {
@@ -52,6 +51,7 @@ struct FMSynthesis: View {
                 }
             }
             .listRowSeparator(.hidden)
+            
             // FM synthesis 결과
             VStack() {
                 Text("FM Result (8Hz ± 4Hz)")
@@ -59,6 +59,15 @@ struct FMSynthesis: View {
                 FMOscilloscopeView()
                     .frame(height: 120)
             }
+            .listRowSeparator(.hidden)
+            
+//            Divider()
+            
+            Text("Try it!")
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .frame(maxWidth: .infinity, alignment: .center)
+                
             
             Text("Carrier Frequency: \(Int(frequency)) Hz")
                 .listRowSeparator(.hidden)
@@ -68,20 +77,31 @@ struct FMSynthesis: View {
                     print("Slider: Frequency: \(newValue)")
                 }
             
-            Text("Modulator Frequency: \(String(format: "%.2f", modFrequency))")
+            Text("Modulator Frequency: \(String(format: "%.2f", modFrequency)) Hz")
                 .listRowSeparator(.hidden)
             Slider(value: $modFrequencyNorm, in: 0...1)
                 .onAppear {
                     // Sync normalized value with current frequency
                     modFrequencyNorm = invLogMap(modFrequency)
+                    SynthManager.shared.updateModulatorFrequency(modFrequency)
                 }
                 .onChange(of: modFrequencyNorm) { _, newNorm in
                     let actual = logMap(newNorm)
                     modFrequency = actual
                     SynthManager.shared.updateModulatorFrequency(actual)
-                    SynthManager.shared.updateFMIndex(10)
                     print("Slider (Log): Modulator Frequency: \(String(format: "%.3f", actual)) Hz")
                 }
+            
+            Text("Index: \(String(format: "%.2f", fmIndex)) (Depth: ± \(String(format: "%.2f", modFrequency * fmIndex)) Hz)")
+                .listRowSeparator(.hidden)
+            Slider(value: $fmIndex, in: 1...10)
+                .onAppear {
+                    SynthManager.shared.updateFMIndex(fmIndex)
+                }
+                .onChange(of: fmIndex) { _, newValue in
+                    SynthManager.shared.updateFMIndex(newValue)
+                }
+            
             
             // Wave Picker
             Picker("", selection: $selectedWave) {
@@ -95,11 +115,8 @@ struct FMSynthesis: View {
                 print("Picker: Waveform: \(newValue)")
             }
             
-            
-            
             // Note On Off
             Toggle("Note On/Off", isOn: $noteOnOff)
-                .toggleStyle(SwitchToggleStyle(tint:.red))
                 .onChange(of: noteOnOff) { _, newValue in
                     if newValue {
                         SynthManager.shared.noteOn(frequency: frequency)
