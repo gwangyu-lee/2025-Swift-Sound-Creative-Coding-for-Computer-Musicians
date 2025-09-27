@@ -25,7 +25,8 @@ class SynthManager {
     
     // MARK: FM Modulator
     private var modulationIndex: Double = 0.0
-    private let modulatorFrequency: Double = 220.0
+    private var modulatorFrequency: Double = 220.0
+    
     private var modulatorPhase: Double = 0.0
     
     // MARK: Vibrato
@@ -198,6 +199,14 @@ class SynthManager {
     func updateFMIndex(_ index: Double) {
         self.targetModulationIndex = index
         print("SynthManager: Received FM Index: \(index)")
+    }
+    
+    func updateModulatorFrequency(_ frequency: Double) {
+        // Clamp to a safe range: 0 Hz up to Nyquist frequency
+        let nyquist = sampleRate / 2.0
+        let clamped = max(0.0, min(frequency, nyquist))
+        self.modulatorFrequency = clamped
+        print("SynthManager: Modulator frequency set to \(clamped) Hz")
     }
     
     func updateEnvelope(attack: Float, decay: Float, sustain: Float, release: Float) {

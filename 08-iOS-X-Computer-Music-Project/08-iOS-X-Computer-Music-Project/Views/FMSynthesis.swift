@@ -16,11 +16,17 @@ import SwiftUI
 struct FMSynthesis: View {
     
     @State private var frequency: Double = 440
+    @State private var modFrequency: Double = 0.0
+    @State private var modFrequencyNorm: Double = 0.0
     @State private var fmIndex: Double = 4
     @State private var noteOnOff: Bool = false
     
     @State private var selectedWave: String = "sine"
     @State private var wave = ["sine", "sawtooth", "triangle", "rectangle", "noise"]
+    
+    // Log mapping
+    @State private var modFMinPositive: Double = 2.0
+    @State private var modFMax: Double = 200.0
     
     var body: some View {
         
@@ -33,28 +39,28 @@ struct FMSynthesis: View {
             HStack() {
                 VStack() {
                     Text("Carrier · 8 Hz")
-//                        .font(.headline)
+                    //                        .font(.headline)
                     SineOscilloscopeView(demoFrequency: 8.0, demoTimeWindow: 1.0, demoSamples: 600)
                         .frame(height: 120)
                 }
                 
                 VStack() {
                     Text("Modulator · 1 Hz")
-//                        .font(.headline)
+                    //                        .font(.headline)
                     SineOscilloscopeView(demoFrequency: 1.0, demoTimeWindow: 2.0, demoSamples: 600)
                         .frame(height: 120)
                 }
             }
-            
+            .listRowSeparator(.hidden)
             // FM synthesis 결과
             VStack() {
                 Text("FM Result (8Hz ± 4Hz)")
-//                    .font(.headline)
+                //                    .font(.headline)
                 FMOscilloscopeView()
                     .frame(height: 120)
             }
             
-            Text("Frequency: \(Int(frequency)) Hz")
+            Text("Carrier Frequency: \(Int(frequency)) Hz")
                 .listRowSeparator(.hidden)
             Slider(value: $frequency, in: 440...880)
                 .onChange(of: frequency) { _, newValue in
@@ -62,12 +68,19 @@ struct FMSynthesis: View {
                     print("Slider: Frequency: \(newValue)")
                 }
             
-            Text("FM Index: \(String(format: "%.2f", fmIndex))")
+            Text("Modulator Frequency: \(String(format: "%.2f", modFrequency))")
                 .listRowSeparator(.hidden)
-            Slider(value: $fmIndex, in: 0...10)
-                .onChange(of: fmIndex) { _, newValue in
-                    SynthManager.shared.updateFMIndex(newValue)
-                    print("Slider: FM Index: \(newValue)")
+            Slider(value: $modFrequencyNorm, in: 0...1)
+                .onAppear {
+                    // Sync normalized value with current frequency
+                    modFrequencyNorm = invLogMap(modFrequency)
+                }
+                .onChange(of: modFrequencyNorm) { _, newNorm in
+                    let actual = logMap(newNorm)
+                    modFrequency = actual
+                    SynthManager.shared.updateModulatorFrequency(actual)
+                    SynthManager.shared.updateFMIndex(10)
+                    print("Slider (Log): Modulator Frequency: \(String(format: "%.3f", actual)) Hz")
                 }
             
             // Wave Picker
@@ -108,14 +121,28 @@ struct FMSynthesis: View {
             }
         }
     }
+    
+    private func logMap(_ norm: Double) -> Double {
+        let clampedNorm = min(max(norm, 0), 1)
+        if clampedNorm == 0 { return 0 }
+        let ratio = 1.0 + (modFMax / modFMinPositive)
+        return modFMinPositive * (pow(ratio, clampedNorm) - 1.0)
+    }
+    
+    private func invLogMap(_ value: Double) -> Double {
+        let clampedVal = min(max(value, 0), modFMax)
+        if clampedVal == 0 { return 0 }
+        let ratio = 1.0 + (modFMax / modFMinPositive)
+        return log(1.0 + clampedVal / modFMinPositive) / log(ratio)
+    }
 }
 
-// FM Synthesis 결과 파형을 보여주는 뷰
+
 struct FMOscilloscopeView: View {
-    var carrierFrequency: Double = 8.0  // 중심 주파수
-    var modulatorFrequency: Double = 1.0 // 변조 주파수
-    var fmIndex: Double = 6.0  // FM Index
-    var demoTimeWindow: Double = 2.0  // 2초 윈도우로 변조를 명확히 보여줌
+    var carrierFrequency: Double = 8.0
+    var modulatorFrequency: Double = 1.0
+    var fmIndex: Double = 6.0
+    var demoTimeWindow: Double = 2.0
     var demoSamples: Int = 1200
     var demoAmplitude: Double = 0.8
     
@@ -128,7 +155,7 @@ struct FMOscilloscopeView: View {
                 let centerY = h / 2.0
                 let amp = (h / 2.0) * demoAmplitude
                 
-                // FM synthesis: instantaneous frequency = carrier + deviation * cos(modulator_phase)
+                
                 let deviation = fmIndex * modulatorFrequency
                 
                 let path = Path { p in
@@ -136,10 +163,8 @@ struct FMOscilloscopeView: View {
                         let x = Double(i) / Double(demoSamples - 1)
                         let sampleTime = t - (1.0 - x) * demoTimeWindow
                         
-                        // Modulator signal
                         let modulatorPhase = 2.0 * .pi * modulatorFrequency * sampleTime
                         
-                        // FM signal: phase(t) = 2π * carrier * t + (deviation/modulator) * sin(modulator_phase)
                         let carrierPhase = 2.0 * .pi * carrierFrequency * sampleTime
                         let modulationPhase = (deviation / modulatorFrequency) * sin(modulatorPhase)
                         let totalPhase = carrierPhase + modulationPhase
@@ -232,7 +257,7 @@ struct GridBackgroundView: View {
                 central.addLine(to: CGPoint(x: w, y: h/2))
                 context.stroke(central, with: .color(.gray.opacity(0.25)), lineWidth: 1)
                 
-                // 가로 보조선
+                
                 for i in 1...3 {
                     let y = h * Double(i) / 4.0
                     var p = Path()
@@ -241,7 +266,7 @@ struct GridBackgroundView: View {
                     context.stroke(p, with: .color(.gray.opacity(0.06)), lineWidth: 0.5)
                 }
                 
-                // 세로 눈금
+                
                 let cols = 8
                 for i in 0...cols {
                     let x = w * Double(i) / Double(cols)
@@ -258,3 +283,4 @@ struct GridBackgroundView: View {
 #Preview {
     FMSynthesis()
 }
+
