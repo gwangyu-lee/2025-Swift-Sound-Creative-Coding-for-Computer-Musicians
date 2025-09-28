@@ -70,7 +70,7 @@ This method can create everything from simple sine waves to complex, evolving ti
                 .frame(height: 120)
             
             
-            Text("FM Result (8 Hz ± 6 Hz, Index = 6)")
+            Text("FM Result · 8 Hz ± 6 Hz")
                 .bold()
                 .listRowSeparator(.hidden)
                 .padding(0)
@@ -99,7 +99,8 @@ This method can create everything from simple sine waves to complex, evolving ti
 //                .fontWeight(.bold)
 //            
             
-            Text("Carrier Frequency: \(Int(frequency)) Hz ± \(String(format: "%.2f", modFrequency * fmIndex)) Hz")
+            Text("Carrier · \(Int(frequency)) Hz")
+                .bold()
                 .listRowSeparator(.hidden)
             Slider(value: $frequency, in: 440...880)
                 .onChange(of: frequency) { _, newValue in
@@ -108,7 +109,8 @@ This method can create everything from simple sine waves to complex, evolving ti
                 }
                 .listRowSeparator(.hidden)
             
-            Text("Modulator Frequency: \(String(format: "%.2f", modFrequency)) Hz")
+            Text("Modulator · \(String(format: "%.2f", modFrequency)) Hz")
+                .bold()
                 .listRowSeparator(.hidden)
             Slider(value: $modFrequencyNorm, in: 0...1)
                 .onAppear {
@@ -124,7 +126,8 @@ This method can create everything from simple sine waves to complex, evolving ti
                 }
                 .listRowSeparator(.hidden)
             
-            Text("Index: \(String(format: "%.2f", fmIndex))")
+            Text("Index · \(String(format: "%.2f", fmIndex))")
+                .bold()
                 .listRowSeparator(.hidden)
             Slider(value: $fmIndex, in: 1...10)
                 .onAppear {
@@ -135,6 +138,10 @@ This method can create everything from simple sine waves to complex, evolving ti
                 }
                 .listRowSeparator(.hidden)
             
+            Text("FM Result · \(Int(frequency)) Hz ± \(String(format: "%.2f", modFrequency * fmIndex)) Hz")
+                .bold()
+                .listRowSeparator(.hidden)
+                .padding(0)
             
             // Wave Picker
             Picker("", selection: $selectedWave) {
