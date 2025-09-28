@@ -39,7 +39,7 @@ struct MySplitView: View {
                 case "Tissue":
                     TissueContentView()
                 case "Settings":
-                    OSCSettingsView()
+                    SettingsView()
                 case "About":
                     About()
                 default:
