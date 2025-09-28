@@ -32,7 +32,7 @@ struct About: View {
                 
                 Text("Annoying kid - 김태준 \n 아이의 짜증을 표현하였습니다. \n 어른들도 때론 아이처럼 짜증내고 싶죠,,, \n 맘껏 짜증내시길 \n 기술설명 : FM 합성(Frequency Modulation Synthesis)을 기반으로 구현하였습니다. 먼저 나침반 센서를 이용하여 FM의 음색을 조절하고, Y축의 기울임으로 음량을 조절하고, X축의 기울임으로 주파수(220~880Hz)를 조절합니다. \n ")
                 
-                Text("Tissue - 손서율 \n 슬플 땐 휴지를 뽑아 눈물을 닦아보세요... :)")
+                Text("Tissue - 손서율 \n힘들 땐 웃는 자가 일류라죠.\n슬플 땐 휴지를 뽑아 눈물을 닦고…\n남은 휴지로 간식도 싸드세요. 다용도입니다. :)")
                 
                 Text("NAME \n Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.")
                 
