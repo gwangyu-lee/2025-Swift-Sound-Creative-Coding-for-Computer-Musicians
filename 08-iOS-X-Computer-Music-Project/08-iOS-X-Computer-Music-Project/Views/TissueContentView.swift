@@ -933,7 +933,7 @@ struct TissueContentView: View {
         // --- 시간대별 유머/밤 멘트 출력 로직 ---
         pullCount += 1
         
-        // 파란색 휴지일 때 5번 뽑으면 원래색으로 복귀
+        // 파란색 휴지일 때 3번 뽑으면 원래색으로 복귀
         if tissueColor == .blue {
             colorChangeCount += 1
             if colorChangeCount >= 3 {
