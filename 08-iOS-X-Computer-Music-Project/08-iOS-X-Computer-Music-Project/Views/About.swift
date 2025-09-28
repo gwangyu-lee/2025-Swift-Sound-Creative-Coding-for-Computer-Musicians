@@ -9,12 +9,12 @@ import SwiftUI
 
 struct About: View {
     var body: some View {
-        VStack{
-            Text("About")
-                .font(.title)
-                .fontWeight(.bold)
-                .frame(maxWidth: .infinity, alignment: .leading)
+
             List {
+                Text("About")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("""
                     이 앱은 동국대학교 영상대학원 MARTE Lab에서 진행된 2025 Swift Sound - Creative Coding for Computer Musicians 프로젝트를 통해 개발된 애플리케이션이다. 김연호, 김태준, ???, ???, ???, ???이 참여하여 완성했다.
@@ -44,11 +44,9 @@ struct About: View {
                 
                 
             }
-            .listStyle(.inset)
-            //            .listRowSeparator(.hidden)
-            .cornerRadius(10)
-        }
-        .padding()
+//            .listStyle(.inset)
+            .padding(0)
+
     }
 }
 

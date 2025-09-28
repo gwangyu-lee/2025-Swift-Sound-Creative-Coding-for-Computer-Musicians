@@ -22,7 +22,7 @@ struct FMSynthesis: View {
     @State private var noteOnOff: Bool = false
     
     @State private var selectedWave: String = "sine"
-    @State private var wave = ["sine", "sawtooth", "triangle", "rectangle"]
+    @State private var wave = ["sine", "sawtooth", "rectangle", "triangle"]
     
     // Log mapping
     @State private var modFMinPositive: Double = 2.0
@@ -30,52 +30,83 @@ struct FMSynthesis: View {
     
     var body: some View {
         
-        Text("What is FM Synthesis?")
-            .font(.largeTitle)
-            .fontWeight(.bold)
-
         List {
-            HStack() {
-                VStack() {
-                    Text("Carrier · 8 Hz")
-                    //                        .font(.headline)
-                    SineOscilloscopeView(demoFrequency: 8.0, demoTimeWindow: 1.0, demoSamples: 600)
-                        .frame(height: 120)
-                }
-                
-                VStack() {
-                    Text("Modulator · 1 Hz")
-                    //                        .font(.headline)
-                    SineOscilloscopeView(demoFrequency: 1.0, demoTimeWindow: 2.0, demoSamples: 600)
-                        .frame(height: 120)
-                }
-            }
-            .listRowSeparator(.hidden)
-            
-            // FM synthesis 결과
-            VStack() {
-                Text("FM Result (8Hz ± 4Hz)")
-                //                    .font(.headline)
-                FMOscilloscopeView()
-                    .frame(height: 120)
-            }
-            .listRowSeparator(.hidden)
-            
-//            Divider()
-            
-            Text("Try it!")
-                .font(.largeTitle)
+            Text("What is FM Synthesis?")
+                .font(.title)
                 .fontWeight(.bold)
-                .frame(maxWidth: .infinity, alignment: .center)
-                
+                .listRowSeparator(.hidden)
             
-            Text("Carrier Frequency: \(Int(frequency)) Hz")
+            Text("""
+FM Synthesis (Frequency Modulation) is a technique where the frequency of one signal (the **modulator**) controls the frequency of another signal (the **carrier**).
+This method can create everything from simple sine waves to complex, evolving timbres, making it one of the core techniques in electronic music.
+""")
+            .font(.body)
+            .listRowSeparator(.hidden)
+            
+            Text("Carrier · 8 Hz")
+                .bold()
+                .listRowSeparator(.hidden)
+                .padding(0)
+            Text("The carrier is the base waveform we actually hear. "
+                 + "Here, an 8 Hz sine wave is used as the carrier signal.")
+            .font(.body)
+            .listRowSeparator(.hidden)
+            
+            SineOscilloscopeView(demoFrequency: 8.0, demoTimeWindow: 1.0, demoSamples: 600)
+                .frame(height: 120)
+            
+            Text("Modulator · 1 Hz")
+                .bold()
+                .listRowSeparator(.hidden)
+                .padding(0)
+            
+            Text("The modulator controls the frequency of the carrier. "
+                 + "In this example, a 1 Hz sine wave modulates the carrier, "
+                 + "causing its frequency to oscillate back and forth.")
+            .font(.body)
+            .listRowSeparator(.hidden)
+            
+            SineOscilloscopeView(demoFrequency: 1.0, demoTimeWindow: 1.0, demoSamples: 600)
+                .frame(height: 120)
+            
+            
+            Text("FM Result (8 Hz ± 6 Hz, Index = 6)")
+                .bold()
+                .listRowSeparator(.hidden)
+                .padding(0)
+
+            Text("""
+            The FM Index is 6 in this example, which controls how much the carrier frequency deviates from its original value. A higher index produces a larger deviation, resulting in a richer and more complex sound, while a lower index creates a subtler effect.
+            
+            Here, the carrier frequency is 8 Hz and the modulator is 1 Hz. With an FM Index of 6, the carrier oscillates between 2 Hz and 14 Hz, forming the characteristic FM waveform.
+            """)
+            .font(.body)
+            .listRowSeparator(.hidden)
+            
+            FMOscilloscopeView()
+                .frame(height: 120)
+                .listRowSeparator(.hidden)
+            
+            Text("""
+            Here, the waveform may look similar to vibrato for visualization purposes. However, as mentioned earlier, if the carrier frequency is modulated very rapidly with a large depth, it produces many partials, creating unique and rich timbres. 
+            Use the sliders below to experiment and try it yourself!
+            """)
+            .font(.body)
+//            .listRowSeparator(.hidden)
+//
+//            Text("Try it!")
+//                .font(.title)
+//                .fontWeight(.bold)
+//            
+            
+            Text("Carrier Frequency: \(Int(frequency)) Hz ± \(String(format: "%.2f", modFrequency * fmIndex)) Hz")
                 .listRowSeparator(.hidden)
             Slider(value: $frequency, in: 440...880)
                 .onChange(of: frequency) { _, newValue in
                     SynthManagerGG.shared.updateFrequency(frequency: newValue)
                     print("Slider: Frequency: \(newValue)")
                 }
+                .listRowSeparator(.hidden)
             
             Text("Modulator Frequency: \(String(format: "%.2f", modFrequency)) Hz")
                 .listRowSeparator(.hidden)
@@ -91,8 +122,9 @@ struct FMSynthesis: View {
                     SynthManagerGG.shared.updateModulatorFrequency(actual)
                     print("Slider (Log): Modulator Frequency: \(String(format: "%.3f", actual)) Hz")
                 }
+                .listRowSeparator(.hidden)
             
-            Text("Index: \(String(format: "%.2f", fmIndex)) (Depth: ± \(String(format: "%.2f", modFrequency * fmIndex)) Hz)")
+            Text("Index: \(String(format: "%.2f", fmIndex))")
                 .listRowSeparator(.hidden)
             Slider(value: $fmIndex, in: 1...10)
                 .onAppear {
@@ -101,6 +133,7 @@ struct FMSynthesis: View {
                 .onChange(of: fmIndex) { _, newValue in
                     SynthManagerGG.shared.updateFMIndex(newValue)
                 }
+                .listRowSeparator(.hidden)
             
             
             // Wave Picker
@@ -117,6 +150,7 @@ struct FMSynthesis: View {
                 SynthManagerGG.shared.selectedWave = newValue
                 print("Picker: Waveform: \(newValue)")
             }
+            .listRowSeparator(.hidden)
             
             // Note On Off
             Toggle("Note On/Off", isOn: $noteOnOff)
@@ -129,10 +163,11 @@ struct FMSynthesis: View {
                         print("Toggle: Note Off")
                     }
                 }
+                .listRowSeparator(.hidden)
             
         }
-        .listStyle(.plain)
-        .padding()
+//        .listStyle(.plain)
+        .padding(0)
         .onAppear {
             SynthManagerGG.shared.updateVibratoRate(0)
             print("View: FMSynthesis.swift")
@@ -166,8 +201,8 @@ struct FMOscilloscopeView: View {
     var carrierFrequency: Double = 8.0
     var modulatorFrequency: Double = 1.0
     var fmIndex: Double = 6.0
-    var demoTimeWindow: Double = 2.0
-    var demoSamples: Int = 1200
+    var demoTimeWindow: Double = 1.0
+    var demoSamples: Int = 600
     var demoAmplitude: Double = 0.8
     
     var body: some View {
@@ -185,7 +220,10 @@ struct FMOscilloscopeView: View {
                 let path = Path { p in
                     for i in 0..<demoSamples {
                         let x = Double(i) / Double(demoSamples - 1)
-                        let sampleTime = t - (1.0 - x) * demoTimeWindow
+                        //                        let sampleTime = t - (1.0 - x) * demoTimeWindow
+                        let offsetSeconds = demoTimeWindow * 0.74
+                        let sampleTime = t - (1.0 - x) * demoTimeWindow + offsetSeconds
+                        
                         
                         let modulatorPhase = 2.0 * .pi * modulatorFrequency * sampleTime
                         
@@ -289,7 +327,6 @@ struct GridBackgroundView: View {
                     p.addLine(to: CGPoint(x: w, y: y))
                     context.stroke(p, with: .color(.gray.opacity(0.06)), lineWidth: 0.5)
                 }
-                
                 
                 let cols = 8
                 for i in 0...cols {
