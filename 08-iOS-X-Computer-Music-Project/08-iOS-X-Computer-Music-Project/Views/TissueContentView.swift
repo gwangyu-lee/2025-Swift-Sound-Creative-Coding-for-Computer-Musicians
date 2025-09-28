@@ -94,7 +94,7 @@ class FMSynthesizer {
         var modulatorPhase = self.modulatorPhase
         
         // 첫 번째 샘플에서의 위상값을 저장 (연속성 체크용)
-        let initialCarrierSample = sin(2 * .pi * carrierPhase + sin(2 * .pi * modulatorPhase) * modulationIndex)
+        _ = sin(2 * .pi * carrierPhase + sin(2 * .pi * modulatorPhase) * modulationIndex)
 
         for i in 0..<totalFrames {
             var envelope: Float = 1.0
@@ -451,6 +451,7 @@ struct TissueContentView: View {
 
     @State private var nightMessage: String? = nil // 밤에 표시할 멘트(이스터에그/유머)
     @State private var pullCount: Int = 0 // 휴지 뽑기 누적 횟수
+    @State private var colorChangeCount: Int = 0 // 색깔 변경 후 뽑은 횟수 (5번 카운트용)
 
     @State private var nextHumorTrigger: Int = Int.random(in: 2...3) // 다음 유머 멘트 트리거 카운트
 
@@ -931,6 +932,18 @@ struct TissueContentView: View {
 
         // --- 시간대별 유머/밤 멘트 출력 로직 ---
         pullCount += 1
+        
+        // 파란색 휴지일 때 5번 뽑으면 원래색으로 복귀
+        if tissueColor == .blue {
+            colorChangeCount += 1
+            if colorChangeCount >= 3 {
+                withAnimation(.easeInOut(duration: 0.7)) {
+                    tissueColor = .white
+                }
+                colorChangeCount = 0
+            }
+        }
+        
         if pullCount == nextHumorTrigger {
             let calendar = Calendar.current
             let hour = calendar.component(.hour, from: Date())
@@ -961,6 +974,7 @@ struct TissueContentView: View {
                     withAnimation(.easeInOut(duration: 0.7)) {
                         tissueColor = .blue
                     }
+                    colorChangeCount = 0 // 색상 변경 시 카운터 리셋
                 }
                 // 털복숭이 알레르기 이스터에그: 강아지와 고양이 이모지 띄우기
                 if random == "세상 모든 털복숭이에게 거부당하는 운명. 전 강아지와 고양이 알러지가 둘다있거든요. 저주받았죠." {
