@@ -17,7 +17,7 @@ struct About: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 Text("""
-                    이 앱은 동국대학교 영상대학원 MARTE Lab에서 진행된 2025 Swift Sound - Creative Coding for Computer Musicians 프로젝트를 통해 개발된 애플리케이션이다. 김연호, 김태준, ???, ???, ???, ???이 참여하여 완성했다.
+                    이 앱은 동국대학교 영상대학원 MARTE Lab에서 진행된 2025 Swift Sound - Creative Coding for Computer Musicians 프로젝트를 통해 개발된 애플리케이션이다. 김연호, 김태준, 손서율, ???, ???, ???이 참여하여 완성했다.
                     모든 사운드는 FM 합성(Frequency Modulation Synthesis)을 기반으로 구현되었다. 터치 인터랙션과 아이폰 센서(자이로, 나침반 등)를 활용하여, 사용자가 손끝의 움직임이나 기기의 기울임만으로도 사운드를 조작하고 새로운 음악적 경험을 탐구할 수 있다.
                     또한 본 프로젝트는 연구와 학습의 공유를 중요하게 여기며, 스터디 과정과 앱의 소스코드 전체를 오픈소스로 공개하였다. 누구나 아래 깃허브 링크를 통해 접근할 수 있으며, 이를 기반으로 자유롭게 학습하고 확장해 나갈 수 있다.
                     """)
