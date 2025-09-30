@@ -21,7 +21,7 @@ struct About: View {
                         모든 사운드는 FM 합성(Frequency Modulation Synthesis)을 기반으로 구현되었습니다. 터치 인터랙션과 아이폰 센서(자이로, 나침반 등)를 활용하여 사용자가 손끝의 움직임이나 기기의 기울임만으로도 사운드를 조작하고 새로운 음악적 경험을 탐구할 수 있습니다.
                         또한 본 프로젝트는 연구와 학습의 공유를 중요하게 여기며, 스터디 과정과 앱의 소스코드 전체를 오픈소스로 공개하였습니다. 누구나 아래 깃허브 링크를 통해 접근할 수 있으며, 이를 기반으로 자유롭게 학습하고 확장해 나갈 수 있습니다.
                         """)
-            .font(.headline)
+//            .font(.headline)
             
             Link("GitHub 🔗",
                  destination: URL(string: "https://github.com/gwangyu-lee/2025-Swift-Sound-Creative-Coding-for-Computer-Musicians")!
@@ -51,7 +51,7 @@ struct About: View {
     어른들도 때론 아이처럼 짜증내고 싶죠...
     맘껏 짜증내시길
     
-    기술설명 : FM 합성(Frequency Modulation Synthesis)을 기반으로 구현하였습니다. 먼저 나침반 센서를 이용하여 FM의 음색을 조절하고, Y축의 기울임으로 음량을 조절하고, X축의 기울임으로 주파수(220~880Hz)를 조절합니다.
+    기술설명 : 나침반 센서를 이용하여 FM의 음색을 조절하고, Y축의 기울임으로 음량을 조절하고, X축의 기울임으로 주파수(220~880Hz)를 조절합니다.
     """)
             }
             
