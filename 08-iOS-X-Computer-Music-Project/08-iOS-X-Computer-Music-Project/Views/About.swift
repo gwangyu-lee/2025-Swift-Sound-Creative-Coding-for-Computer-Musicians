@@ -36,7 +36,9 @@ struct About: View {
                 Text("매미 - 김연호")
                     .bold()
                 Text("""
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+     시끄러운 FM 합성 사운드에는 역시 매미가 딱! 여러분도 한번 만들어 보세요. 드디어 여름이 지나가서 살 것 같은데, '여름 감성 ~ ' 어쩌구 하는 친구들의 귀에 FM 매미의 사운드로 참교육을 해봐요! 
+    
+     The noisy FM synthesis sound just suits the cicada perfectly! You should try making one too. Summer's finally over and I feel like I can live again, so let's properly school those friends who talk about 'Summer Vibes' with a dose of FM Cicada sound!
     """)
             }
             
