@@ -738,7 +738,7 @@ struct TissueContentView: View {
                         .font(.system(size: 12))
                         .foregroundColor(.black)
                     
-                    Text("할인: -₩0 (감정 할인)")
+                    Text("할인: -₩0 (야간 할인)")
                         .font(.system(size: 12))
                         .foregroundColor(.blue)
                     
