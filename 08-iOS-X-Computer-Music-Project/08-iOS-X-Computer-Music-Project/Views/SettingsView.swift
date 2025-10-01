@@ -18,17 +18,17 @@ public struct SettingsView: View {
     public var body: some View {
         
         List {
-            Text("Language")
-                .font(.title2)
-                .bold()
-                .listRowSeparator(.hidden)
-
-            Picker("", selection: $selectedLanguage) {
-                ForEach(languages, id: \.self) { newValue in
-                    Text(newValue)
-                }
-            }
-            .pickerStyle(.segmented)
+//            Text("Language")
+//                .font(.title2)
+//                .bold()
+//                .listRowSeparator(.hidden)
+//
+//            Picker("", selection: $selectedLanguage) {
+//                ForEach(languages, id: \.self) { newValue in
+//                    Text(newValue)
+//                }
+//            }
+//            .pickerStyle(.segmented)
             
             Text("OSC")
                 .font(.title2)

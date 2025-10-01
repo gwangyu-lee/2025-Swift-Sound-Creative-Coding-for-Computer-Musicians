@@ -20,7 +20,7 @@ class FMSynthesizer {
         static let indexMin: Float = 0.5
         static let indexMax: Float = 3.0
     }
-
+    
     // MARK: - Blanket Sound
     func playBlanketSound() {
         let buffer = synthesize(
@@ -80,22 +80,22 @@ class FMSynthesizer {
         let frameCount = AVAudioFrameCount(duration * sampleRate)
         let buffer = AVAudioPCMBuffer(pcmFormat: format, frameCapacity: frameCount)!
         buffer.frameLength = frameCount
-
+        
         guard let samples = buffer.floatChannelData?[0] else { return buffer }
-
+        
         let totalFrames = Int(frameCount)
         let attackFrames = Int(attack * sampleRate)
         let decayFrames = Int(decay * sampleRate)
         let releaseFrames = Int(release * sampleRate)
         let sustainFrames = max(0, totalFrames - attackFrames - decayFrames - releaseFrames)
-
+        
         // 위상 연속성을 위해 현재 위상 사용
         var carrierPhase = self.carrierPhase
         var modulatorPhase = self.modulatorPhase
         
         // 첫 번째 샘플에서의 위상값을 저장 (연속성 체크용)
         _ = sin(2 * .pi * carrierPhase + sin(2 * .pi * modulatorPhase) * modulationIndex)
-
+        
         for i in 0..<totalFrames {
             var envelope: Float = 1.0
             
@@ -114,21 +114,21 @@ class FMSynthesizer {
                 // 부드러운 exponential release
                 envelope = sustain * exp(-4.0 * releaseProgress)
             }
-
+            
             let modulator = sin(2 * .pi * modulatorPhase) * modulationIndex
             let carrier = sin(2 * .pi * carrierPhase + modulator)
-
+            
             samples[i] = carrier * envelope * 0.3 // 볼륨 약간 낮춤
-
+            
             // 위상 증가 (정확한 계산)
             carrierPhase += carrierFreq / sampleRate
             modulatorPhase += modulatorFreq / sampleRate
-
+            
             // 위상 정규화 (fmod 사용으로 더 정확하게)
             carrierPhase = fmod(carrierPhase, 1.0)
             modulatorPhase = fmod(modulatorPhase, 1.0)
         }
-
+        
         // DC 성분 제거를 더 정확하게
         var dcOffset: Float = 0
         for i in 0..<totalFrames {
@@ -139,7 +139,7 @@ class FMSynthesizer {
         for i in 0..<totalFrames {
             samples[i] -= dcOffset
         }
-
+        
         // 더 부드러운 페이드인/아웃 적용
         let fadeSamples = min(64, totalFrames / 4) // 페이드를 조금 늘림
         if fadeSamples > 0 {
@@ -158,7 +158,7 @@ class FMSynthesizer {
                 }
             }
         }
-
+        
         // 첫 번째와 마지막 몇 샘플을 완전히 0으로 (틱 노이즈 완전 방지)
         let zeroSamples = min(8, totalFrames / 16)
         for i in 0..<zeroSamples {
@@ -167,11 +167,11 @@ class FMSynthesizer {
                 samples[totalFrames - 1 - i] *= Float(i) / Float(zeroSamples)
             }
         }
-
+        
         // 위상 상태 저장 (다음 버퍼와의 연속성 보장)
         self.carrierPhase = carrierPhase
         self.modulatorPhase = modulatorPhase
-
+        
         return buffer
     }
     
@@ -179,7 +179,7 @@ class FMSynthesizer {
         let fc: Float = 400 + progress * 400
         let fm: Float = fc * 3.0
         let index: Float = 1.0 + progress * 1.0
-
+        
         let buffer = synthesize(
             carrierFreq: fc,
             modulatorFreq: fm,
@@ -190,7 +190,7 @@ class FMSynthesizer {
             sustain: 0.0,
             release: 0.025   // 적당한 릴리즈
         )
-
+        
         playerNode.scheduleBuffer(buffer, at: nil, options: [.interrupts], completionHandler: nil)
         if !playerNode.isPlaying {
             playerNode.play()
@@ -201,9 +201,9 @@ class FMSynthesizer {
         let fc = map(metrics.length, from: 0...500, to: Params.fcMin...Params.fcMax)
         let fmRatio: Float = 3.5
         let fm = fc * fmRatio
-
+        
         let modulationIndex = map(metrics.peakVelocity, from: 0...2000, to: Params.indexMin...Params.indexMax)
-
+        
         let buffer = synthesize(
             carrierFreq: fc,
             modulatorFreq: fm,
@@ -214,7 +214,7 @@ class FMSynthesizer {
             sustain: 0.0,
             release: 0.08      // 더 긴 릴리즈
         )
-
+        
         playerNode.scheduleBuffer(buffer, at: nil, options: [.interrupts], completionHandler: nil)
         if !playerNode.isPlaying {
             playerNode.play()
@@ -226,7 +226,7 @@ class FMSynthesizer {
         let clamped = min(max(normalized, 0), 1)
         return to.lowerBound + clamped * (to.upperBound - to.lowerBound)
     }
-
+    
     // MARK: - Funny Song: Dumb FM melody with random notes
     func playFunnySong() {
         for i in 0..<8 {
@@ -357,12 +357,12 @@ struct TissueView: View {
     var horizontalOffset: CGFloat
     var opacity: Double
     var tissueColor: Color
-
+    
     @State private var animatingOffset: CGFloat = 0
     @State private var animatingHorizontal: CGFloat = 0
     @State private var animatingRotation: Double = 0
     @State private var animatingOpacity: Double = 1.0
-
+    
     var body: some View {
         // Animate with spring for a more natural curved pull
         Rectangle()
@@ -374,7 +374,7 @@ struct TissueView: View {
                 Rectangle()
                     .stroke(Color.gray.opacity(0.15), lineWidth: 0.5)
             )
-            // Curve the pull: sideways arc based on upward pull distance
+        // Curve the pull: sideways arc based on upward pull distance
             .offset(
                 x: horizontalOffset + sin(offset / 80) * 20,
                 y: -offset + 20
@@ -411,7 +411,8 @@ struct TissueBoxView: View {
                         // Text label
                         VStack {
                             Spacer()
-                            Text("힘들 때 웃는 자가 1류다")
+                            //                            Text("힘들 때 웃는 자가 1류다")
+                            Text("Those who smile through hardship are truly first-rate.")
                                 .font(.system(size: 18, weight: .semibold))
                                 .foregroundColor(isNightMode ? .white : .black)
                                 .padding(.bottom, 50)
@@ -431,7 +432,7 @@ struct TissueContentView: View {
     @StateObject private var metricsCalculator = GestureMetricsCalculator() // 제스처 측정기 상태 객체
     // FM 합성 사운드 생성기
     @State private var synthesizer = FMSynthesizer() // FM 신스 사운드 객체
-
+    
     @State private var showBlanket = false
     @State private var blanketPending = false
     @State private var showDogEmoji = false
@@ -440,7 +441,7 @@ struct TissueContentView: View {
     @State private var showReceipt = false
     @State private var hairPending = false
     @State private var showHair = false
-
+    
     // 현재 화면에 표시되는 휴지 아이템 배열 (각 휴지의 위치, 회전 등 상태 포함)
     @State private var tissueItems: [TissueItem] = [
         TissueItem(offset: 60, rotation: 0, horizontalOffset: 0, opacity: 1.0, isFalling: false)
@@ -448,87 +449,137 @@ struct TissueContentView: View {
     @State private var tissueColor: Color = .white // 휴지 색상 상태
     @State private var isDragging = false // 사용자가 현재 드래그 중인지 여부
     @State private var animationPhase: AnimationPhase = .idle // 현재 애니메이션 단계
-
+    
     @State private var nightMessage: String? = nil // 밤에 표시할 멘트(이스터에그/유머)
     @State private var pullCount: Int = 0 // 휴지 뽑기 누적 횟수
     @State private var colorChangeCount: Int = 0 // 색깔 변경 후 뽑은 횟수 (5번 카운트용)
-
+    
     @State private var nextHumorTrigger: Int = Int.random(in: 2...3) // 다음 유머 멘트 트리거 카운트
-
+    
     // Night mode state
     @State private var isNightMode: Bool = false
     
     // 초기 애니메이션 상태
     @State private var isAppStarting: Bool = true
     @State private var introMessageOffset: CGFloat = 0
-
+    
     // 밤 시간대에 표시할 멘트 배열
+    //    private let nightTimeMentions: [String] = [
+    //        "이 시간엔… 자야 하지 않나요?",
+    //        "새벽 감성 좋아… 근데 눈 감고 느껴봐요.",
+    //        "휴지 말고 이불을 뽑으세요.",
+    //        "이쯤이면 당신도 알고 있을 거예요. 그만해야 할 시간이라는 걸.",
+    //        "이 시간엔 휴지도 졸려요.",
+    //        "우린 지금 새벽에… 휴지를 뽑고 있어요.",
+    //        "자자. 자요. 제발 자요.",
+    //        "지금… 당신 뒤에 졸음이 있어요.",
+    //        "그만 뽑아… 나 오늘 꿈에 나올 거야.",
+    //        "한 장 더 뽑으면 이불 깔아줄게.",
+    //        "그만 자요. 안 그러면 당신 꿈에 휴지 요정이 나타나 잔소리할 거예요.",
+    //        "이렇게 늦은 시간에 뽑는 휴지는… 사실 과거의 후회를 닦는 용도입니다.",
+    //        "이제 뽑으면 자동으로 영수증이 나올지도…",
+    //        "속보: 휴지, 주인의 손길을 피해 망명 시도.",
+    //        "이제 뽑은 건 휴지가 아니라… 인생의 잔여 털입니다.",
+    //        "휴지가 다 떨어지면, 그때 가서 잠들려나요?",
+    //        "이 시간에 깨어있는 건 고양이랑 당신뿐이에요. 야옹!",
+    //        "다음 장은 자동으로 코골이 효과가 들어갑니다."
+    //    ]
     private let nightTimeMentions: [String] = [
-        "이 시간엔… 자야 하지 않나요?",
-        "새벽 감성 좋아… 근데 눈 감고 느껴봐요.",
-        "휴지 말고 이불을 뽑으세요.",
-        "이쯤이면 당신도 알고 있을 거예요. 그만해야 할 시간이라는 걸.",
-        "이 시간엔 휴지도 졸려요.",
-        "우린 지금 새벽에… 휴지를 뽑고 있어요.",
-        "자자. 자요. 제발 자요.",
-        "지금… 당신 뒤에 졸음이 있어요.",
-        "그만 뽑아… 나 오늘 꿈에 나올 거야.",
-        "한 장 더 뽑으면 이불 깔아줄게.",
-        "그만 자요. 안 그러면 당신 꿈에 휴지 요정이 나타나 잔소리할 거예요.",
-        "이렇게 늦은 시간에 뽑는 휴지는… 사실 과거의 후회를 닦는 용도입니다.",
-        "이제 뽑으면 자동으로 영수증이 나올지도…",
-        "속보: 휴지, 주인의 손길을 피해 망명 시도.",
-        "이제 뽑은 건 휴지가 아니라… 인생의 잔여 털입니다.",
-        "휴지가 다 떨어지면, 그때 가서 잠들려나요?",
-        "이 시간에 깨어있는 건 고양이랑 당신뿐이에요. 야옹!",
-        "다음 장은 자동으로 코골이 효과가 들어갑니다."
+        "At this hour… shouldn’t you be asleep?",
+        "Late-night vibes are nice… but close your eyes and feel them instead.",
+        "Forget the tissue, go pull up a blanket.",
+        "By now, you probably know… it’s time to stop.",
+        "Even the tissue feels sleepy at this hour.",
+        "Here we are, pulling tissues in the middle of the night.",
+        "Sleep. Sleep. Please, just sleep.",
+        "Right now… drowsiness is standing behind you.",
+        "Stop pulling… I’ll show up in your dreams tonight.",
+        "One more pull and I’ll lay out a blanket for you.",
+        "Go to sleep, or the Tissue Fairy will appear in your dream to scold you.",
+        "A tissue pulled this late at night… is really for wiping away past regrets.",
+        "Keep pulling and you might just get a receipt instead…",
+        "Breaking news: The tissue is attempting exile to escape its owner’s grasp.",
+        "What you just pulled out… isn’t tissue, it’s the leftover fuzz of your life.",
+        "Will you only go to bed once the tissues are gone?",
+        "The only ones awake at this hour are you and the cat. Meow!",
+        "The next sheet comes with automatic snoring effects."
     ]
+    
     // 유머 멘트 배열
+    //    private let humorMentions: [String] = [
+    //        "이제 그만 뽑아줘… 내 삶이 갈기갈기야…",
+    //        "휴지곽이 속삭임: '살려줘…'",
+    //        "당신의 리듬, 드러머가 질투함.",
+    //        "조심해요! 휴지가 도망가고 싶어해요.",
+    //        "방금 휴지가 숨을 헐떡였어요.",
+    //        "다 쓴 줄 알았지? 하지만 인생도 리필돼.",
+    //        "가장 필요한 순간에 나타나는 것. 그것이 휴지의 존재 이유.",
+    //        "당신이 뽑은 것은 휴지가 아니라, 사실 '오늘의 운세'였습니다.",
+    //        "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
+    //        "뽑은 휴지의 질감이 매우 부드럽습니다. 오늘 커피는 공짜입니다.",
+    //        "경고: 오늘 안에 겪을 '이불 밖은 위험해' 지수가 300% 상승했습니다.",
+    //        "오늘의 행운 색깔은 흰색입니다. 휴지 색깔이 흰색이 아니라면... 조심하세요.",
+    //        "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
+    //        "재물운 상승! 하지만 지갑을 열 때마다 먼지만 보게 될 것입니다.",
+    //        "오늘 당신의 책상 위에서 잃어버린 '작년의 영수증'을 발견할 운명입니다.",
+    //        "오늘 만날 사람은... 어제 편의점에서 마주친 그 고양이일 확률이 높습니다.",
+    //        "야옹^^!*",
+    //        "대학원은 휴지 심과 같아요. 끝은 있는데 리필해도 또 끝이 없죠.",
+    //        "세상 모든 털복숭이에게 거부당하는 운명. 전 강아지와 고양이 알러지가 둘다있거든요. 저주받았죠.",
+    //        "휴지곽 내부에서 회의가 열렸습니다. 안건: ‘도망칠 방법 찾기’.",
+    //        "오늘 당신의 기분은 2겹 휴지. 겉은 단단해 보여도 속은 부드럽습니다.",
+    //        "휴지가 속삭입니다: ‘내겐 아직 2겹의 비밀이 남아있어…’",
+    //        "방금 뽑힌 휴지, 사실 어제 당신이 흘린 눈물을 기억하고 있어요.",
+    //        "오늘의 애정운: 휴지처럼 얇고 길게… 끊어지지 않길 바랍니다.",
+    //        "휴지곽이 속삭임: ‘나는 원래 티슈가 아니었다…’",
+    //        "이 속도면 곧 화장실 휴지도 정기구독해야 합니다."
+    //    ]
     private let humorMentions: [String] = [
-        "이제 그만 뽑아줘… 내 삶이 갈기갈기야…",
-        "휴지곽이 속삭임: '살려줘…'",
-        "당신의 리듬, 드러머가 질투함.",
-        "조심해요! 휴지가 도망가고 싶어해요.",
-        "방금 휴지가 숨을 헐떡였어요.",
-        "다 쓴 줄 알았지? 하지만 인생도 리필돼.",
-        "가장 필요한 순간에 나타나는 것. 그것이 휴지의 존재 이유.",
-        "당신이 뽑은 것은 휴지가 아니라, 사실 '오늘의 운세'였습니다.",
-        "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
-        "뽑은 휴지의 질감이 매우 부드럽습니다. 오늘 커피는 공짜입니다.",
-        "경고: 오늘 안에 겪을 '이불 밖은 위험해' 지수가 300% 상승했습니다.",
-        "오늘의 행운 색깔은 흰색입니다. 휴지 색깔이 흰색이 아니라면... 조심하세요.",
-        "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
-        "재물운 상승! 하지만 지갑을 열 때마다 먼지만 보게 될 것입니다.",
-        "오늘 당신의 책상 위에서 잃어버린 '작년의 영수증'을 발견할 운명입니다.",
-        "오늘 만날 사람은... 어제 편의점에서 마주친 그 고양이일 확률이 높습니다.",
-        "야옹^^!*",
-        "대학원은 휴지 심과 같아요. 끝은 있는데 리필해도 또 끝이 없죠.",
-        "세상 모든 털복숭이에게 거부당하는 운명. 전 강아지와 고양이 알러지가 둘다있거든요. 저주받았죠.",
-        "휴지곽 내부에서 회의가 열렸습니다. 안건: ‘도망칠 방법 찾기’.",
-        "오늘 당신의 기분은 2겹 휴지. 겉은 단단해 보여도 속은 부드럽습니다.",
-        "휴지가 속삭입니다: ‘내겐 아직 2겹의 비밀이 남아있어…’",
-        "방금 뽑힌 휴지, 사실 어제 당신이 흘린 눈물을 기억하고 있어요.",
-        "오늘의 애정운: 휴지처럼 얇고 길게… 끊어지지 않길 바랍니다.",
-        "휴지곽이 속삭임: ‘나는 원래 티슈가 아니었다…’",
-        "이 속도면 곧 화장실 휴지도 정기구독해야 합니다."
+        "Stop pulling me… my life is in shreds…",
+        "The tissue box whispers: 'Save me…'",
+        "Your rhythm is making even drummers jealous.",
+        "Careful! The tissue wants to run away.",
+        "The tissue just gasped for air.",
+        "You thought it was over? Life, too, comes with refills.",
+        "It appears when you need it most. That is the true purpose of tissue.",
+        "What you pulled out isn’t tissue—it’s actually today’s fortune.",
+        "Great fortune! Instead of winning the lottery, you’ll find your missing sock.",
+        "The texture of this tissue feels especially soft. Today’s coffee is on the house.",
+        "Warning: Your 'outside the blanket is dangerous' index has risen by 300%.",
+        "Today’s lucky color is white. If your tissue isn’t white… be careful.",
+        "Great fortune! Instead of winning the lottery, you’ll find your missing sock.",
+        "Your wealth luck is rising! But every time you open your wallet, only dust will appear.",
+        "Today you are destined to discover 'last year’s receipt' on your desk.",
+        "The person you’ll meet today… is most likely the cat you ran into at the convenience store yesterday.",
+        "Meow ^^!*",
+        "Graduate school is like a tissue roll. There is an end, but even when you refill, there’s another end waiting.",
+        "Fated to be rejected by all furry creatures. I’m allergic to both dogs and cats… I’m cursed.",
+        "A meeting was just held inside the tissue box. Agenda: 'Find a way to escape.'",
+        "Today your mood is like 2-ply tissue. Tough on the outside, but soft on the inside.",
+        "The tissue whispers: 'I still have two layers of secrets left…'",
+        "This sheet remembers the tears you shed yesterday.",
+        "Today’s love fortune: thin and long like tissue… may it never tear.",
+        "The tissue box whispers: 'I was never really tissue…'",
+        "At this rate, you’ll need a subscription for toilet paper too."
     ]
-
+    
     private let maxPullLength: CGFloat = 400 // 휴지 최대 뽑기 길이
     private let cutThreshold: CGFloat = 150  // 휴지 절단(분리) 임계값
-
+    
     // 애니메이션 단계 정의
     enum AnimationPhase {
         case idle, pulling, cutting, retracting // 대기, 뽑기 중, 잘라내기, 복귀
     }
-
+    
     var body: some View {
         ZStack { // MARK: - 전체 레이아웃 ZStack (배경, 휴지곽, 휴지, 멘트)
             (isNightMode ? Color.black : Color(hex: "#F5F5F0")).ignoresSafeArea() // 배경색
-
+            
             // MARK: - 하단 안내 문구 및 총 뽑은 횟수 표시 (애니메이션 포함)
             VStack {
                 Spacer()
-                Text("슬플 땐 휴지를 뽑아 눈물을 닦아보세요… :)")
+                //                Text("슬플 땐 휴지를 뽑아 눈물을 닦아보세요… :)")
+                Text("When you’re sad, pull out a tissue and wipe your tears… :)")
                     .font(.system(size: 18, weight: .medium))
                     .foregroundColor(isNightMode ? .white : .gray)
                     .offset(y: introMessageOffset)
@@ -537,7 +588,7 @@ struct TissueContentView: View {
                     .animation(.spring(response: 1.2, dampingFraction: 0.8).delay(1.5), value: introMessageOffset)
                     .padding(.bottom, 50)
             }
-
+            
             // MARK: - 휴지곽 + 휴지 (화면 중앙 배치)
             VStack {
                 ZStack(alignment: .top) {
@@ -580,15 +631,15 @@ struct TissueContentView: View {
                                     metricsCalculator.startGesture(at: value.startLocation) // 제스처 측정 시작
                                     animationPhase = .pulling
                                 }
-
+                                
                                 let delta = max(0, -value.translation.height) // 위로 뽑을 때만 양수
                                 // 가장 위(최신)의 휴지 아이템만 위치 갱신
                                 updateTopTissue { tissue in
                                     tissue.offset = min(delta, maxPullLength)
                                 }
-
+                                
                                 metricsCalculator.updateGesture(at: value.location) // 속도 등 측정 갱신
-
+                                
                                 // 일정 시간마다 드래그 사운드 재생
                                 if metricsCalculator.shouldTriggerDragSound() {
                                     let progress = Float((tissueItems.last?.offset ?? 0) / maxPullLength)
@@ -598,14 +649,14 @@ struct TissueContentView: View {
                         }
                         .onEnded { _ in
                             isDragging = false
-
+                            
                             // 제스처 종료: 충분히 뽑았는지/속도 등 체크
                             if metricsCalculator.endGesture() {
                                 synthesizer.playReleaseSound(
                                     metrics: metricsCalculator.currentMetrics,
                                     repetitionCount: metricsCalculator.repetitionCount
                                 ) // 휴지 뽑기 사운드 재생
-
+                                
                                 if (tissueItems.last?.offset ?? 0) >= cutThreshold {
                                     performCut() // 충분히 뽑았으면 휴지 분리 애니메이션
                                 } else {
@@ -618,7 +669,7 @@ struct TissueContentView: View {
                         }
                 )
             }
-
+            
             // MARK: - 밤/이스터에그 멘트 오버레이
             if let nightMessage = nightMessage {
                 Text(nightMessage)
@@ -632,7 +683,7 @@ struct TissueContentView: View {
                     .zIndex(100)
                     .padding(.top, 150) // 팝업 멘트위치
             }
-
+            
             if showBlanket {
                 RoundedRectangle(cornerRadius: 20)
                     .fill(
@@ -653,7 +704,7 @@ struct TissueContentView: View {
                     .transition(.move(edge: .bottom))
                     .zIndex(80)
             }
-
+            
             // 강아지 이모지
             if showDogEmoji {
                 Text("🐶")
@@ -665,7 +716,7 @@ struct TissueContentView: View {
                     ))
                     .zIndex(90)
             }
-
+            
             // 고양이 이모지
             if showCatEmoji {
                 Text("🐱")
@@ -677,7 +728,7 @@ struct TissueContentView: View {
                     ))
                     .zIndex(90)
             }
-
+            
             // 털 이펙트
             if showHair {
                 VStack {
@@ -714,7 +765,7 @@ struct TissueContentView: View {
                 ))
                 .zIndex(85)
             }
-
+            
             // 영수증
             if showReceipt {
                 VStack(alignment: .leading, spacing: 4) {
@@ -767,17 +818,25 @@ struct TissueContentView: View {
                 ))
                 .zIndex(95)
             }
-
+            
             // MARK: - 초기 인트로 멘트 (화면 중앙에서 시작)
             if isAppStarting {
-                Text("슬플 땐 휴지를 뽑아 눈물을 닦아보세요… :)")
-                    .font(.system(size: 20, weight: .medium))
-                    .foregroundColor(isNightMode ? .white : .gray)
-                    .multilineTextAlignment(.center)
-                    .opacity(isAppStarting ? 1 : 0)
-                    .scaleEffect(isAppStarting ? 1.1 : 0.8)
-                    .animation(.easeInOut(duration: 1.0), value: isAppStarting)
-                    .zIndex(300)
+                
+                HStack {
+                    
+                    //                Text("슬플 땐 휴지를 뽑아 눈물을 닦아보세요… :)")
+                    Text("When you’re sad, pull out a tissue and wipe your tears… :)")
+                        .font(.system(size: 20, weight: .medium))
+                        .foregroundColor(isNightMode ? .white : .gray)
+                        .multilineTextAlignment(.center)
+                        .opacity(isAppStarting ? 1 : 0)
+                        .scaleEffect(isAppStarting ? 1.1 : 0.8)
+                        .animation(.easeInOut(duration: 1.0), value: isAppStarting)
+                        .zIndex(300)
+                    
+                }
+                .padding(.horizontal, 20)
+                
             }
             VStack {
                 HStack {
@@ -819,7 +878,7 @@ struct TissueContentView: View {
             }
         }
     }
-
+    
     // MARK: - 가장 위의 휴지 아이템만 갱신 (inout 클로저)
     private func updateTopTissue(_ update: (inout TissueItem) -> Void) {
         guard !tissueItems.isEmpty else { return }
@@ -827,12 +886,12 @@ struct TissueContentView: View {
         update(&current)
         tissueItems.append(current)
     }
-
+    
     // MARK: - 휴지 분리(컷) 애니메이션 및 로직
     @MainActor
     private func performCut() {
         animationPhase = .cutting
-
+        
         // --- 영수증 이스터에그 처리 ---
         if receiptPending {
             showReceipt = true
@@ -843,7 +902,7 @@ struct TissueContentView: View {
                 }
             }
         }
-
+        
         // --- 털 이스터에그 처리 ---
         if hairPending {
             showHair = true
@@ -854,15 +913,15 @@ struct TissueContentView: View {
                 }
             }
         }
-
+        
         let fallOffset: CGFloat = 800 // 휴지 떨어지는 거리
         let swayRange: CGFloat = 10   // 좌우 흔들림 범위
         let randomSway = CGFloat.random(in: -swayRange...swayRange) // 랜덤 좌우 흔들림
         let randomRotation = Double.random(in: -30...30) // 랜덤 회전
-
+        
         if !tissueItems.isEmpty {
             let lastId = tissueItems.last!.id
-
+            
             // 1단계: 휴지 위로 튕기며 살짝 흔들림
             withAnimation(.interpolatingSpring(stiffness: 80, damping: 6)) {
                 tissueItems = tissueItems.map { t in
@@ -877,7 +936,7 @@ struct TissueContentView: View {
                     return t
                 }
             }
-
+            
             // 2단계: 약간의 딜레이 후, 아래로 떨어지며 투명도 감소 및 좌우 흔들림
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                 withAnimation(.spring(response: 0.7, dampingFraction: 0.72)) {
@@ -905,7 +964,7 @@ struct TissueContentView: View {
                 }
             }
         }
-
+        
         // 3단계: 새로운 휴지 생성(스폰) 및 자리로 애니메이션
         let newTissue = TissueItem(offset: 0, rotation: 0, horizontalOffset: 0, opacity: 0.0, isFalling: false)
         tissueItems.append(newTissue)
@@ -918,14 +977,14 @@ struct TissueContentView: View {
             }
             animationPhase = .idle
         }
-
+        
         // 4단계: 일정 시간 후, 떨어진 휴지 제거
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
             if tissueItems.count > 1 {
                 tissueItems.removeFirst(tissueItems.count - 1)
             }
         }
-
+        
         // --- Blanket overlay/sound trigger if pending ---
         if blanketPending {
             showBlanket = true
@@ -937,7 +996,7 @@ struct TissueContentView: View {
                 }
             }
         }
-
+        
         // --- 시간대별 유머/밤 멘트 출력 로직 ---
         pullCount += 1
         
@@ -1018,7 +1077,7 @@ struct TissueContentView: View {
             nextHumorTrigger = pullCount + Int.random(in: 2...3)
         }
     }
-
+    
     // MARK: - 휴지 복귀(원위치) 애니메이션
     @MainActor
     private func retractTissue() {
@@ -1032,14 +1091,14 @@ struct TissueContentView: View {
             animationPhase = .idle
         }
     }
-
+    
     // MARK: - 시간별 이스터에그/멘트 체크 (정각마다 메시지)
     private func checkNightTimeEasterEgg() {
         let calendar = Calendar.current
         let now = Date()
         let hour = calendar.component(.hour, from: now)
         let minute = calendar.component(.minute, from: now)
-
+        
         if minute == 0 {
             switch hour {
             case 0:
@@ -1099,13 +1158,13 @@ struct TissueContentView: View {
                 }
             }
         }
-
+        
         // 30초마다 재확인
         DispatchQueue.main.asyncAfter(deadline: .now() + 30.0) {
             checkNightTimeEasterEgg()
         }
     }
-
+    
     // MARK: - 유효하지 않은 제스처(짧게 뽑기 등) 사운드 재생
     @MainActor
     private func playInvalidSound() {
@@ -1142,3 +1201,4 @@ extension Color {
 #Preview {
     TissueContentView()
 }
+

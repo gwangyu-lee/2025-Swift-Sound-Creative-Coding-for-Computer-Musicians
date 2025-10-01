@@ -12,10 +12,10 @@ struct MySplitView: View {
     @StateObject var sensorManager = SensorManager()
     @StateObject var sensorManagerTJ = SensorManagerTJ()
     
-    @State private var selectedView: String? = "FM Synthesis"
+    @State private var selectedView: String? = "What is FM Synthesis?"
     
     // 배열, 뷰 목록
-    let views = ["FM Synthesis", "Cicadidae", "Annoying Kid", "Tissue", "Saber", "Settings", "About"]
+    let views = ["What is FM Synthesis?", "Cicada", "Annoying Kid", "Tissue", "Saber", "About"]
     
     var body: some View {
         NavigationSplitView {
@@ -26,13 +26,13 @@ struct MySplitView: View {
             ) {
                 view in Text(view)
             }
-            .navigationTitle("Swift Study")
+            .navigationTitle("FM Playground")
         } detail: {
             if let selectedView = selectedView {
                 switch selectedView {
-                case "FM Synthesis":
+                case "What is FM Synthesis?":
                     FMSynthesis()
-                case "Cicadidae":
+                case "Cicada":
                     Cicadidae()
                 case "Annoying Kid":
                     CharacterView(sensorManager: sensorManagerTJ)
@@ -40,8 +40,8 @@ struct MySplitView: View {
                     TissueContentView()
                 case "Saber":
                     SaberView()
-                case "Settings":
-                    SettingsView()
+//                case "Settings":
+//                    SettingsView()
                 case "About":
                     About()
                 default:

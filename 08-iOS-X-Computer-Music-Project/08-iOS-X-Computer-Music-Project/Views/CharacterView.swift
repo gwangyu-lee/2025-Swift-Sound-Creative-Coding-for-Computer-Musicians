@@ -115,7 +115,8 @@ struct CharacterView: View {
                 }
                 
                 // 설명 텍스트
-                Text("아이를 눌러서 깨우고\n아이가 짜증을 낼 수 있게\n핸드폰을 이리저리 움직여보세요.")
+//                Text("아이를 눌러서 깨우고\n아이가 짜증을 낼 수 있게\n핸드폰을 이리저리 움직여보세요.")
+                Text("Tap the child to wake them up,\nand move your phone around\nso the child can throw a tantrum.")
                     .multilineTextAlignment(.center)
                     .font(.system(size: 16, weight: .medium, design: .rounded))
                     .foregroundColor(.black)

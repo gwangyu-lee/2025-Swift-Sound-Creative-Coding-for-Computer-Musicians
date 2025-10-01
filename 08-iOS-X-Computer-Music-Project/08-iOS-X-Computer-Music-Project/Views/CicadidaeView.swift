@@ -78,13 +78,16 @@ struct Cicadidae: View {
     
     var body: some View {
         VStack(spacing: 20) {
-            Text("매미")
+            Text("Cicada")
                 .font(.largeTitle)
                 .fontWeight(.bold)
             
             VStack {
-                Text("여름은 지나갔지만...")
-                Text("매미는 우리 마음속에 살아있습니다...")
+//                Text("여름은 지나갔지만...")
+//                Text("매미는 우리 마음속에 살아있습니다...")
+                
+                Text("Summer has passed...")
+                Text("But the cicada still lives on in our hearts...")
             }
             .padding()
             .multilineTextAlignment(.center)
@@ -178,9 +181,12 @@ struct Cicadidae: View {
             
             // ✨ 요청하신 안내 문구로 정확히 복원했습니다.
             VStack {
-                Text("볼륨을 줄이고 매미를 만지세요.")
-                Text("매미를 만져서 울리거나 달래줄 수 있습니다.")
-                Text("위, 아래로 쓰다듬어서 울음 소리를 조절하세요.")
+//                Text("볼륨을 줄이고 매미를 만지세요.")
+//                Text("매미를 만져서 울리거나 달래줄 수 있습니다.")
+//                Text("위, 아래로 쓰다듬어서 울음 소리를 조절하세요.")
+                Text("Turn down the volume and touch the cicada.")
+                Text("You can make it cry or calm it down by touching it.")
+                Text("Stroke it up and down to control its sound.")
              
             }
             .padding()
