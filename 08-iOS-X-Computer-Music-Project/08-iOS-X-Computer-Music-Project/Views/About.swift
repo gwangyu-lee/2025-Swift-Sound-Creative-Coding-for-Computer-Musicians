@@ -57,7 +57,7 @@ struct About: View {
             """)
             
             
-            Link("GitHub 🔗",
+            Link("GitHub",
                  destination: URL(string: "https://github.com/gwangyu-lee/2025-Swift-Sound-Creative-Coding-for-Computer-Musicians")!
             )
             .font(.headline)
@@ -75,7 +75,7 @@ struct About: View {
             //
             //    """)
             //
-            //                Link("Website 🔗",
+            //                Link("Website",
             //                     destination: URL(string: "https://www.gwangyulee.com")!
             //                )
             //                .font(.headline)
@@ -108,7 +108,7 @@ Rubbing the cicada controls the modulator's frequency. The index is fixed, and I
                 //
                 //セミをこすることでモジュレーターの周波数を制御します。インデックスは固定で、キャリアオシレーターにはノコギリ波を使用しました
                 //""")
-                Link("website 🔗",
+                Link("website",
                      destination: URL(string: "https://www.yeonhokim.com")!
                 )
                 .font(.headline)
