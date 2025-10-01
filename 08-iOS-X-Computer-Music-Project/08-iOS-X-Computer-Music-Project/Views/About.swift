@@ -123,7 +123,7 @@ Rubbing the cicada controls the modulator's frequency. The index is fixed, and I
     This work expresses the tantrum of an annoying child.  
     Sometimes even adults feel like being just as whiny as kids...  
     So go ahead—let yourself be as annoying as you want.  
-
+    
     The timbre of FM synthesis is controlled using the compass sensor, the tilt along the Y-axis adjusts the volume, and the tilt along the X-axis controls the frequency (220–880 Hz).
     """)
                 //                Text("Annoying kid - 김태준")
@@ -150,23 +150,32 @@ Rubbing the cicada controls the modulator's frequency. The index is fixed, and I
     When pulling the tissue, the carrier frequency rises from 400Hz to 800Hz as the drag distance increases, creating a progressively higher pitch, while the modulation index simultaneously increases from 1.0 to 2.0, enriching the harmonic structure and producing a more tense timbre. Upon release, the total pull length determines the frequency, and the peak velocity determines the modulation index—short, slow pulls generate soft, low-pitched sounds, while long, fast pulls produce sharp sounds with complex harmonics. The FM ratio is fixed at 3.0-3.5 to maintain timbral consistency across the sound family, enabling users to perceive subtle differences in gesture intensity through distinct auditory feedback.
     """)
                 
-//                Text("Tissue - 손서율")
-//                    .bold()
-//                Text("""
-//    힘들 땐 웃는 자가 일류라죠.
-//    슬플 땐 휴지를 뽑아 눈물을 닦고...
-//    남은 휴지로 간식도 싸드세요. 다용도입니다. :)
-//    
-//    기술설명: 휴지를 뽑을 때 드래그 거리가 길어질수록 캐리어 주파수가 400Hz에서 800Hz로 상승하며 소리가 점점 높아지고, 동시에 modulation index가 1.0에서 2.0으로 증가하면서 배음 구조가 복잡해져 긴장감 있는 음색으로 변합니다. 손을 뗄 때는 뽑은 총 길이가 주파수를, 최고 속도가 modulation index를 결정하여 짧고 느리게 뽑으면 부드럽고 낮은 소리가, 길고 빠르게 뽑으면 날카롭고 복잡한 배음의 소리가 발생합니다. FM ratio는 3.0~3.5로 고정하여 음색 계열의 일관성을 유지하며, 이를 통해 사용자는 제스처의 미세한 강도 차이를 명확한 청각 피드백으로 인지할 수 있습니다.
-//    
-//    Those who smile through hardship are truly first-rate. When sadness strikes, pull a tissue to wipe your tears...
-//    
-//    And wrap your snacks with the leftover tissue. It's multipurpose. :)
-//    
-//    Technical Description: When pulling the tissue, the carrier frequency rises from 400Hz to 800Hz as the drag distance increases, creating a progressively higher pitch, while the modulation index simultaneously increases from 1.0 to 2.0, enriching the harmonic structure and producing a more tense timbre. Upon release, the total pull length determines the frequency, and the peak velocity determines the modulation index—short, slow pulls generate soft, low-pitched sounds, while long, fast pulls produce sharp sounds with complex harmonics. The FM ratio is fixed at 3.0-3.5 to maintain timbral consistency across the sound family, enabling users to perceive subtle differences in gesture intensity through distinct auditory feedback.
-//    """)
+                //                Text("Tissue - 손서율")
+                //                    .bold()
+                //                Text("""
+                //    힘들 땐 웃는 자가 일류라죠.
+                //    슬플 땐 휴지를 뽑아 눈물을 닦고...
+                //    남은 휴지로 간식도 싸드세요. 다용도입니다. :)
+                //
+                //    기술설명: 휴지를 뽑을 때 드래그 거리가 길어질수록 캐리어 주파수가 400Hz에서 800Hz로 상승하며 소리가 점점 높아지고, 동시에 modulation index가 1.0에서 2.0으로 증가하면서 배음 구조가 복잡해져 긴장감 있는 음색으로 변합니다. 손을 뗄 때는 뽑은 총 길이가 주파수를, 최고 속도가 modulation index를 결정하여 짧고 느리게 뽑으면 부드럽고 낮은 소리가, 길고 빠르게 뽑으면 날카롭고 복잡한 배음의 소리가 발생합니다. FM ratio는 3.0~3.5로 고정하여 음색 계열의 일관성을 유지하며, 이를 통해 사용자는 제스처의 미세한 강도 차이를 명확한 청각 피드백으로 인지할 수 있습니다.
+                //
+                //    Those who smile through hardship are truly first-rate. When sadness strikes, pull a tissue to wipe your tears...
+                //
+                //    And wrap your snacks with the leftover tissue. It's multipurpose. :)
+                //
+                //    Technical Description: When pulling the tissue, the carrier frequency rises from 400Hz to 800Hz as the drag distance increases, creating a progressively higher pitch, while the modulation index simultaneously increases from 1.0 to 2.0, enriching the harmonic structure and producing a more tense timbre. Upon release, the total pull length determines the frequency, and the peak velocity determines the modulation index—short, slow pulls generate soft, low-pitched sounds, while long, fast pulls produce sharp sounds with complex harmonics. The FM ratio is fixed at 3.0-3.5 to maintain timbral consistency across the sound family, enabling users to perceive subtle differences in gesture intensity through distinct auditory feedback.
+                //    """)
             }
-                        
+            
+            VStack(alignment: .leading) {
+                Text("This app uses the following APIs:")
+                    .bold()
+                Text("• AudioKit")
+                Text("• AudioKitEX")
+                Text("• KissFFT")
+                Text("• SoundpipeAudioKit")
+                Text("• Tonic")
+            }
             
         }
         //            .listStyle(.inset)
