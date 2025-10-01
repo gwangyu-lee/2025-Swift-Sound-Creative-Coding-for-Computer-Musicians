@@ -108,7 +108,7 @@ Rubbing the cicada controls the modulator's frequency. The index is fixed, and I
                 //
                 //セミをこすることでモジュレーターの周波数を制御します。インデックスは固定で、キャリアオシレーターにはノコギリ波を使用しました
                 //""")
-                Link("website",
+                Link("Website",
                      destination: URL(string: "https://www.yeonhokim.com")!
                 )
                 .font(.headline)
