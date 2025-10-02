@@ -27,7 +27,7 @@ struct About: View {
                     .font(.title)
                     .bold()
                 
-                Text("v1.0")
+                Text("v1.1")
                     .font(.callout)
                     .foregroundColor(.secondary)
                 
@@ -98,7 +98,7 @@ Rubbing the cicada controls the modulator's frequency. The index is fixed, and I
                 //                Text("""
                 //시끄러운 FM 합성 사운드에는 역시 매미가 딱! 여러분도 한번 만들어 보세요. 드디어 여름이 지나가서 살 것 같은데, '여름 감성 ~ ' 어쩌구 하는 친구들의 귀에 FM 매미의 사운드로 참교육을 해봐요!
                 //
-                //The noisy FM synthesis sound just suits the cicada perfectly! You should try making one too. Summer's finally over and I feel like I can live again, so let's properly school those friends who talk about 'Summer Vibes' with a dose of FM Cicada sound!
+//                The noisy FM synthesis sound just suits the cicada perfectly! You should try making one too. Summer's finally over and I feel like I can live again, so let's properly school those friends who talk about 'Summer Vibes' with a dose of FM Cicada sound!
                 //
                 //FM合成で出すうるさいサウンドは、やっぱりセミが一番！皆さんもぜひ作ってみてください。ようやく夏が過ぎ去って生き返った気分ですが、「夏の情緒〜」とか言っている友達の耳に、FMセミの音でお仕置きをしてやりましょう！
                 //
@@ -182,7 +182,10 @@ Rubbing the cicada controls the modulator's frequency. The index is fixed, and I
         .padding(0)
         
     }
+    
 }
+
+
 
 #Preview {
     About()

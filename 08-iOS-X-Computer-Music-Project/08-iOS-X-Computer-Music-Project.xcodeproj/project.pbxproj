@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		55D05FD02E86EA2900B01071 /* SoundpipeAudioKit in Frameworks */ = {isa = PBXBuildFile; productRef = 55D05FCF2E86EA2900B01071 /* SoundpipeAudioKit */; };
+		CB9E2B8A2E8E034800BE31D4 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = CB9E2B892E8E034800BE31D4 /* Localizable.xcstrings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		CB4A5B6E2E86B944007D5367 /* FM Playground.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "FM Playground.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB4A5B7B2E86B945007D5367 /* 08-iOS-X-Computer-Music-ProjectTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "08-iOS-X-Computer-Music-ProjectTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CB4A5B852E86B945007D5367 /* 08-iOS-X-Computer-Music-ProjectUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "08-iOS-X-Computer-Music-ProjectUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB9E2B892E8E034800BE31D4 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -84,6 +86,7 @@
 				CB4A5B7E2E86B945007D5367 /* 08-iOS-X-Computer-Music-ProjectTests */,
 				CB4A5B882E86B945007D5367 /* 08-iOS-X-Computer-Music-ProjectUITests */,
 				CB4A5B6F2E86B944007D5367 /* Products */,
+				CB9E2B892E8E034800BE31D4 /* Localizable.xcstrings */,
 			);
 			sourceTree = "<group>";
 		};
@@ -197,6 +200,8 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ko,
+				ja,
 				Base,
 			);
 			mainGroup = CB4A5B652E86B944007D5367;
@@ -221,6 +226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB9E2B8A2E8E034800BE31D4 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -338,6 +344,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -395,6 +402,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

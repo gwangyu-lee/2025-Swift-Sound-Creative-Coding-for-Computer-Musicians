@@ -12,28 +12,32 @@ public struct SettingsView: View {
     @State private var ipAddress: String = UserDefaults.standard.string(forKey: "ipAddress") ?? "127.0.0.1"
     @State private var port: String = UserDefaults.standard.string(forKey: "port") ?? "8800"
     
-    @State private var selectedLanguage: String = "EN"
-    @State private var languages = ["EN", "JP", "KR"]
+    @AppStorage("selectedLanguage") private var selectedLanguage: String = "en"
+    @State private var languages = ["en", "ja", "ko"]
     
     public var body: some View {
         
         List {
-//            Text("Language")
-//                .font(.title2)
-//                .bold()
-//                .listRowSeparator(.hidden)
-//
-//            Picker("", selection: $selectedLanguage) {
-//                ForEach(languages, id: \.self) { newValue in
-//                    Text(newValue)
-//                }
-//            }
-//            .pickerStyle(.segmented)
+            Text("Language")
+                .font(.title2)
+                .bold()
+                .listRowSeparator(.hidden)
+            
+            Picker("", selection: $selectedLanguage) {
+                Text("EN").tag("en")
+                Text("JP").tag("ja")
+                Text("KR").tag("ko")
+            }
+            .onChange(of: selectedLanguage) { _, newValue in
+                print("selectedLanguage: \(newValue)")
+            }
+            
+            .pickerStyle(.segmented)
             
             Text("OSC")
                 .font(.title2)
                 .bold()
-
+            
             HStack {
                 Text("IP Address")
                     .frame(width: 100, alignment: .leading)

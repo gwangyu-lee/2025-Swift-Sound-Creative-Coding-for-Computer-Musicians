@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct _8_iOS_X_Computer_Music_ProjectApp: App {
+    @AppStorage("selectedLanguage") private var selectedLanguage: String = "en"
+    
     var body: some Scene {
         WindowGroup {
             MySplitView()
+                .environment(\.locale, .init(identifier: selectedLanguage))
         }
     }
 }
