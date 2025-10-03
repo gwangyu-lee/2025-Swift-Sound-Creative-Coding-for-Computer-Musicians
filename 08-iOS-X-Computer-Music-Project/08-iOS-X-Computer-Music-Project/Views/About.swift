@@ -49,7 +49,7 @@ struct About: View {
             //            """)
             
             Text("""
-            This app was developed as part of the **2025 Swift Sound - Creative Coding for Computer Musicians** project at the MARTE Lab, Dept. of Multimedia, Dongguk University. It was created by Yeonho Kim, Taejun Kim, Seoyul Son, and Sookyung Yoon, with support from Gwangyu Lee.
+            This app was developed as part of the **2025 Swift Sound - Creative Coding for Computer Musicians** project at the MARTE Lab, Dept. of Multimedia, Dongguk University. It was created by Yeonho Kim, Taejun Kim, Seoyul Son, Sookyung Yoon, Changee Park, and Jiwoo Lee, with support from Gwangyu Lee.
             
             All sounds are based on FM synthesis (Frequency Modulation Synthesis). Using touch interaction and iPhone sensors (gyroscope, compass, etc.), users can manipulate sound and explore new musical experiences simply through finger movements or tilting the device.
             

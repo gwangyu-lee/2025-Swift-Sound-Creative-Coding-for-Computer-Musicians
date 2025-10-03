@@ -15,7 +15,16 @@ struct MySplitView: View {
     @State private var selectedView: String? = "What is FM Synthesis?"
     
     // 배열, 뷰 목록
-    let views = ["What is FM Synthesis?", "Cicada", "Annoying Kid", "Tissue", "Saber", "Settings", "About"]
+//    let views = ["What is FM Synthesis?", "Cicada", "Annoying Kid", "Tissue", "Saber", "Settings", "About"]
+    let views = [
+        "What is FM Synthesis?",
+        "Cicada",
+        "Annoying Kid",
+        "Tissue",
+        "Saber",
+        "Settings",
+        "About"
+    ]
     
     var body: some View {
         NavigationSplitView {
@@ -24,7 +33,7 @@ struct MySplitView: View {
                 id: \.self,
                 selection: $selectedView
             ) {
-                view in Text(view)
+                view in Text(LocalizedStringKey(view))
             }
             .navigationTitle("FM Playground")
         } detail: {
