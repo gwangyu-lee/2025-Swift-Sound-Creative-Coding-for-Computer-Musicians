@@ -31,7 +31,7 @@ struct About: View {
                     .font(.callout)
                     .foregroundColor(.secondary)
                 
-                Text("Copyright © 2025 Gwangyu Lee. All rights reserved.")
+                Text("Copyright © 2025 MARTE Lab. All rights reserved.")
                     .font(.callout)
                     .foregroundColor(.secondary)
             }
