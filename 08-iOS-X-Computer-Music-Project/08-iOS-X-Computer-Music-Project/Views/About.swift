@@ -49,7 +49,7 @@ struct About: View {
             //            """)
             
             Text("""
-            This app was developed as part of the **2025 Swift Sound - Creative Coding for Computer Musicians** project at the MARTE Lab, Dept. of Multimedia, Dongguk University. It was created by Yeonho Kim, Taejun Kim, Seoyul Son, Sookyung Yoon, Changee Park, and Jiwoo Lee, with support from Gwangyu Lee.
+            This app was developed as part of the **2025 Swift Sound - Creative Coding for Computer Musicians** project at the MARTE Lab, Dept. of Multimedia, Dongguk University. It was created by Yeonho Kim, Taejun Kim, Seoyul Son, Sookyoung Yoon, Chanhee Park, and Jiwoo Lee, with support from Gwangyu Lee.
             
             All sounds are based on FM synthesis (Frequency Modulation Synthesis). Using touch interaction and iPhone sensors (gyroscope, compass, etc.), users can manipulate sound and explore new musical experiences simply through finger movements or tilting the device.
             
@@ -98,7 +98,7 @@ Rubbing the cicada controls the modulator's frequency. The index is fixed, and I
                 //                Text("""
                 //시끄러운 FM 합성 사운드에는 역시 매미가 딱! 여러분도 한번 만들어 보세요. 드디어 여름이 지나가서 살 것 같은데, '여름 감성 ~ ' 어쩌구 하는 친구들의 귀에 FM 매미의 사운드로 참교육을 해봐요!
                 //
-//                The noisy FM synthesis sound just suits the cicada perfectly! You should try making one too. Summer's finally over and I feel like I can live again, so let's properly school those friends who talk about 'Summer Vibes' with a dose of FM Cicada sound!
+                //                The noisy FM synthesis sound just suits the cicada perfectly! You should try making one too. Summer's finally over and I feel like I can live again, so let's properly school those friends who talk about 'Summer Vibes' with a dose of FM Cicada sound!
                 //
                 //FM合成で出すうるさいサウンドは、やっぱりセミが一番！皆さんもぜひ作ってみてください。ようやく夏が過ぎ去って生き返った気分ですが、「夏の情緒〜」とか言っている友達の耳に、FMセミの音でお仕置きをしてやりましょう！
                 //
@@ -165,6 +165,32 @@ Rubbing the cicada controls the modulator's frequency. The index is fixed, and I
                 //
                 //    Technical Description: When pulling the tissue, the carrier frequency rises from 400Hz to 800Hz as the drag distance increases, creating a progressively higher pitch, while the modulation index simultaneously increases from 1.0 to 2.0, enriching the harmonic structure and producing a more tense timbre. Upon release, the total pull length determines the frequency, and the peak velocity determines the modulation index—short, slow pulls generate soft, low-pitched sounds, while long, fast pulls produce sharp sounds with complex harmonics. The FM ratio is fixed at 3.0-3.5 to maintain timbral consistency across the sound family, enabling users to perceive subtle differences in gesture intensity through distinct auditory feedback.
                 //    """)
+            }
+            
+            // MARK: 윤숙영
+            VStack(alignment: .leading) {
+                Text("Lightsaber - Sookyoung Yoon")
+                    .bold()
+                Text("""
+    
+    Did you ever dream of wielding a lightsaber after watching Star Wars as a kid?
+    Here’s your chance to own a sleek red lightsaber!
+    Relive your childhood and swing it freely with that same imagination.
+    
+    Caution: Do not swing it directly at people. Before operating, make sure there are no objects or people nearby that you could hit.
+    
+    How to Use: The saber is active while your finger is touching the screen; it stops when you lift your finger.
+    
+    Using gyroscope and accelerometer data, the app creates a lightsaber sound by controlling the frequency, index, and amplitude of FM synthesis in real time. Depending on swing intensity, the carrier frequency operates roughly in the 200–260 Hz range, and the modulation frequency is fixed at 90 Hz.
+    
+    """)
+                
+                
+                Link("Website",
+                     destination: URL(string: "https://www.ysookyoung.com")!
+                )
+                .font(.headline)
+                
             }
             
             VStack(alignment: .leading) {

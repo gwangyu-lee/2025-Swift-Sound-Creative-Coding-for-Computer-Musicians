@@ -25,7 +25,7 @@ public struct SettingsView: View {
             
             Picker("", selection: $selectedLanguage) {
                 Text("EN").tag("en")
-                Text("JP").tag("ja")
+//                Text("JP").tag("ja")
                 Text("KR").tag("ko")
             }
             .onChange(of: selectedLanguage) { _, newValue in
@@ -34,37 +34,37 @@ public struct SettingsView: View {
             
             .pickerStyle(.segmented)
             
-            Text("OSC")
-                .font(.title2)
-                .bold()
-            
-            HStack {
-                Text("IP Address")
-                    .frame(width: 100, alignment: .leading)
-                Spacer()
-                TextField("127.0.0.1", text: $ipAddress)
-                    .textFieldStyle(.roundedBorder)
-                    .frame(width: 160, alignment: .trailing)
-                    .multilineTextAlignment(.trailing)
-                    .onChange(of: ipAddress) { _, newValue in
-                        UserDefaults.standard.set(newValue, forKey: "ipAddress")
-                        setOSCClientIP()
-                    }
-            }
-            .listRowSeparator(.hidden)
-            HStack {
-                Text("Port")
-                    .frame(width: 100, alignment: .leading)
-                Spacer()
-                TextField("8800", text: $port)
-                    .textFieldStyle(.roundedBorder)
-                    .frame(width: 160, alignment: .trailing)
-                    .multilineTextAlignment(.trailing)
-                    .onChange(of: port) { _, newValue in
-                        UserDefaults.standard.set(newValue, forKey: "port")
-                        setOSCClientIP()
-                    }
-            }
+//            Text("OSC")
+//                .font(.title2)
+//                .bold()
+//            
+//            HStack {
+//                Text("IP Address")
+//                    .frame(width: 100, alignment: .leading)
+//                Spacer()
+//                TextField("127.0.0.1", text: $ipAddress)
+//                    .textFieldStyle(.roundedBorder)
+//                    .frame(width: 160, alignment: .trailing)
+//                    .multilineTextAlignment(.trailing)
+//                    .onChange(of: ipAddress) { _, newValue in
+//                        UserDefaults.standard.set(newValue, forKey: "ipAddress")
+//                        setOSCClientIP()
+//                    }
+//            }
+//            .listRowSeparator(.hidden)
+//            HStack {
+//                Text("Port")
+//                    .frame(width: 100, alignment: .leading)
+//                Spacer()
+//                TextField("8800", text: $port)
+//                    .textFieldStyle(.roundedBorder)
+//                    .frame(width: 160, alignment: .trailing)
+//                    .multilineTextAlignment(.trailing)
+//                    .onChange(of: port) { _, newValue in
+//                        UserDefaults.standard.set(newValue, forKey: "port")
+//                        setOSCClientIP()
+//                    }
+//            }
             
         }
         

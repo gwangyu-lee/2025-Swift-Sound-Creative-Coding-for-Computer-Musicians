@@ -464,104 +464,127 @@ struct TissueContentView: View {
     @State private var introMessageOffset: CGFloat = 0
     
     // 밤 시간대에 표시할 멘트 배열
-    //    private let nightTimeMentions: [String] = [
-    //        "이 시간엔… 자야 하지 않나요?",
-    //        "새벽 감성 좋아… 근데 눈 감고 느껴봐요.",
-    //        "휴지 말고 이불을 뽑으세요.",
-    //        "이쯤이면 당신도 알고 있을 거예요. 그만해야 할 시간이라는 걸.",
-    //        "이 시간엔 휴지도 졸려요.",
-    //        "우린 지금 새벽에… 휴지를 뽑고 있어요.",
-    //        "자자. 자요. 제발 자요.",
-    //        "지금… 당신 뒤에 졸음이 있어요.",
-    //        "그만 뽑아… 나 오늘 꿈에 나올 거야.",
-    //        "한 장 더 뽑으면 이불 깔아줄게.",
-    //        "그만 자요. 안 그러면 당신 꿈에 휴지 요정이 나타나 잔소리할 거예요.",
-    //        "이렇게 늦은 시간에 뽑는 휴지는… 사실 과거의 후회를 닦는 용도입니다.",
-    //        "이제 뽑으면 자동으로 영수증이 나올지도…",
-    //        "속보: 휴지, 주인의 손길을 피해 망명 시도.",
-    //        "이제 뽑은 건 휴지가 아니라… 인생의 잔여 털입니다.",
-    //        "휴지가 다 떨어지면, 그때 가서 잠들려나요?",
-    //        "이 시간에 깨어있는 건 고양이랑 당신뿐이에요. 야옹!",
-    //        "다음 장은 자동으로 코골이 효과가 들어갑니다."
-    //    ]
-    private let nightTimeMentions: [String] = [
-        "At this hour… shouldn’t you be asleep?",
-        "Late-night vibes are nice… but close your eyes and feel them instead.",
-        "Forget the tissue, go pull up a blanket.",
-        "By now, you probably know… it’s time to stop.",
-        "Even the tissue feels sleepy at this hour.",
-        "Here we are, pulling tissues in the middle of the night.",
-        "Sleep. Sleep. Please, just sleep.",
-        "Right now… drowsiness is standing behind you.",
-        "Stop pulling… I’ll show up in your dreams tonight.",
-        "One more pull and I’ll lay out a blanket for you.",
-        "Go to sleep, or the Tissue Fairy will appear in your dream to scold you.",
-        "A tissue pulled this late at night… is really for wiping away past regrets.",
-        "Keep pulling and you might just get a receipt instead…",
-        "Breaking news: The tissue is attempting exile to escape its owner’s grasp.",
-        "What you just pulled out… isn’t tissue, it’s the leftover fuzz of your life.",
-        "Will you only go to bed once the tissues are gone?",
-        "The only ones awake at this hour are you and the cat. Meow!",
-        "The next sheet comes with automatic snoring effects."
-    ]
+        private let nightTimeMentions: [String] = [
+            "이 시간엔… 자야 하지 않나요?",
+            "새벽 감성 좋아… 근데 눈 감고 느껴봐요.",
+            "휴지 말고 이불을 뽑으세요.",
+            "이쯤이면 당신도 알고 있을 거예요. 그만해야 할 시간이라는 걸.",
+            "이 시간엔 휴지도 졸려요.",
+            "우린 지금 새벽에… 휴지를 뽑고 있어요.",
+            "자자. 자요. 제발 자요.",
+            "지금… 당신 뒤에 졸음이 있어요.",
+            "그만 뽑아… 나 오늘 꿈에 나올 거야.",
+            "한 장 더 뽑으면 이불 깔아줄게.",
+            "그만 자요. 안 그러면 당신 꿈에 휴지 요정이 나타나 잔소리할 거예요.",
+            "이렇게 늦은 시간에 뽑는 휴지는… 사실 과거의 후회를 닦는 용도입니다.",
+            "이제 뽑으면 자동으로 영수증이 나올지도…",
+            "속보: 휴지, 주인의 손길을 피해 망명 시도.",
+            "이제 뽑은 건 휴지가 아니라… 인생의 잔여 털입니다.",
+            "휴지가 다 떨어지면, 그때 가서 잠들려나요?",
+            "이 시간에 깨어있는 건 고양이랑 당신뿐이에요. 야옹!",
+            "다음 장은 자동으로 코골이 효과가 들어갑니다."
+        ]
+    
+//    private let nightTimeMentions: [String] = [
+//        "At this hour… shouldn’t you be asleep?",
+//        "Late-night vibes are nice… but close your eyes and feel them instead.",
+//        "Forget the tissue, go pull up a blanket.",
+//        "By now, you probably know… it’s time to stop.",
+//        "Even the tissue feels sleepy at this hour.",
+//        "Here we are, pulling tissues in the middle of the night.",
+//        "Sleep. Sleep. Please, just sleep.",
+//        "Right now… drowsiness is standing behind you.",
+//        "Stop pulling… I’ll show up in your dreams tonight.",
+//        "One more pull and I’ll lay out a blanket for you.",
+//        "Go to sleep, or the Tissue Fairy will appear in your dream to scold you.",
+//        "A tissue pulled this late at night… is really for wiping away past regrets.",
+//        "Keep pulling and you might just get a receipt instead…",
+//        "Breaking news: The tissue is attempting exile to escape its owner’s grasp.",
+//        "What you just pulled out… isn’t tissue, it’s the leftover fuzz of your life.",
+//        "Will you only go to bed once the tissues are gone?",
+//        "The only ones awake at this hour are you and the cat. Meow!",
+//        "The next sheet comes with automatic snoring effects."
+//    ]
+//    
+//    private let nightTimeMentions: [LocalizedStringKey] = [
+//        "night_1",
+//        "night_2",
+//        "night_3",
+//        "night_4",
+//        "night_5",
+//        "night_6",
+//        "night_7",
+//        "night_8",
+//        "night_9",
+//        "night_10",
+//        "night_11",
+//        "night_12",
+//        "night_13",
+//        "night_14",
+//        "night_15",
+//        "night_16",
+//        "night_17",
+//        "night_18"
+//    ]
+
     
     // 유머 멘트 배열
-    //    private let humorMentions: [String] = [
-    //        "이제 그만 뽑아줘… 내 삶이 갈기갈기야…",
-    //        "휴지곽이 속삭임: '살려줘…'",
-    //        "당신의 리듬, 드러머가 질투함.",
-    //        "조심해요! 휴지가 도망가고 싶어해요.",
-    //        "방금 휴지가 숨을 헐떡였어요.",
-    //        "다 쓴 줄 알았지? 하지만 인생도 리필돼.",
-    //        "가장 필요한 순간에 나타나는 것. 그것이 휴지의 존재 이유.",
-    //        "당신이 뽑은 것은 휴지가 아니라, 사실 '오늘의 운세'였습니다.",
-    //        "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
-    //        "뽑은 휴지의 질감이 매우 부드럽습니다. 오늘 커피는 공짜입니다.",
-    //        "경고: 오늘 안에 겪을 '이불 밖은 위험해' 지수가 300% 상승했습니다.",
-    //        "오늘의 행운 색깔은 흰색입니다. 휴지 색깔이 흰색이 아니라면... 조심하세요.",
-    //        "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
-    //        "재물운 상승! 하지만 지갑을 열 때마다 먼지만 보게 될 것입니다.",
-    //        "오늘 당신의 책상 위에서 잃어버린 '작년의 영수증'을 발견할 운명입니다.",
-    //        "오늘 만날 사람은... 어제 편의점에서 마주친 그 고양이일 확률이 높습니다.",
-    //        "야옹^^!*",
-    //        "대학원은 휴지 심과 같아요. 끝은 있는데 리필해도 또 끝이 없죠.",
-    //        "세상 모든 털복숭이에게 거부당하는 운명. 전 강아지와 고양이 알러지가 둘다있거든요. 저주받았죠.",
-    //        "휴지곽 내부에서 회의가 열렸습니다. 안건: ‘도망칠 방법 찾기’.",
-    //        "오늘 당신의 기분은 2겹 휴지. 겉은 단단해 보여도 속은 부드럽습니다.",
-    //        "휴지가 속삭입니다: ‘내겐 아직 2겹의 비밀이 남아있어…’",
-    //        "방금 뽑힌 휴지, 사실 어제 당신이 흘린 눈물을 기억하고 있어요.",
-    //        "오늘의 애정운: 휴지처럼 얇고 길게… 끊어지지 않길 바랍니다.",
-    //        "휴지곽이 속삭임: ‘나는 원래 티슈가 아니었다…’",
-    //        "이 속도면 곧 화장실 휴지도 정기구독해야 합니다."
-    //    ]
-    private let humorMentions: [String] = [
-        "Stop pulling me… my life is in shreds…",
-        "The tissue box whispers: 'Save me…'",
-        "Your rhythm is making even drummers jealous.",
-        "Careful! The tissue wants to run away.",
-        "The tissue just gasped for air.",
-        "You thought it was over? Life, too, comes with refills.",
-        "It appears when you need it most. That is the true purpose of tissue.",
-        "What you pulled out isn’t tissue—it’s actually today’s fortune.",
-        "Great fortune! Instead of winning the lottery, you’ll find your missing sock.",
-        "The texture of this tissue feels especially soft. Today’s coffee is on the house.",
-        "Warning: Your 'outside the blanket is dangerous' index has risen by 300%.",
-        "Today’s lucky color is white. If your tissue isn’t white… be careful.",
-        "Great fortune! Instead of winning the lottery, you’ll find your missing sock.",
-        "Your wealth luck is rising! But every time you open your wallet, only dust will appear.",
-        "Today you are destined to discover 'last year’s receipt' on your desk.",
-        "The person you’ll meet today… is most likely the cat you ran into at the convenience store yesterday.",
-        "Meow ^^!*",
-        "Graduate school is like a tissue roll. There is an end, but even when you refill, there’s another end waiting.",
-        "Fated to be rejected by all furry creatures. I’m allergic to both dogs and cats… I’m cursed.",
-        "A meeting was just held inside the tissue box. Agenda: 'Find a way to escape.'",
-        "Today your mood is like 2-ply tissue. Tough on the outside, but soft on the inside.",
-        "The tissue whispers: 'I still have two layers of secrets left…'",
-        "This sheet remembers the tears you shed yesterday.",
-        "Today’s love fortune: thin and long like tissue… may it never tear.",
-        "The tissue box whispers: 'I was never really tissue…'",
-        "At this rate, you’ll need a subscription for toilet paper too."
-    ]
+        private let humorMentions: [String] = [
+            "이제 그만 뽑아줘… 내 삶이 갈기갈기야…",
+            "휴지곽이 속삭임: '살려줘…'",
+            "당신의 리듬, 드러머가 질투함.",
+            "조심해요! 휴지가 도망가고 싶어해요.",
+            "방금 휴지가 숨을 헐떡였어요.",
+            "다 쓴 줄 알았지? 하지만 인생도 리필돼.",
+            "가장 필요한 순간에 나타나는 것. 그것이 휴지의 존재 이유.",
+            "당신이 뽑은 것은 휴지가 아니라, 사실 '오늘의 운세'였습니다.",
+            "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
+            "뽑은 휴지의 질감이 매우 부드럽습니다. 오늘 커피는 공짜입니다.",
+            "경고: 오늘 안에 겪을 '이불 밖은 위험해' 지수가 300% 상승했습니다.",
+            "오늘의 행운 색깔은 흰색입니다. 휴지 색깔이 흰색이 아니라면... 조심하세요.",
+            "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
+            "재물운 상승! 하지만 지갑을 열 때마다 먼지만 보게 될 것입니다.",
+            "오늘 당신의 책상 위에서 잃어버린 '작년의 영수증'을 발견할 운명입니다.",
+            "오늘 만날 사람은... 어제 편의점에서 마주친 그 고양이일 확률이 높습니다.",
+            "야옹^^!*",
+            "대학원은 휴지 심과 같아요. 끝은 있는데 리필해도 또 끝이 없죠.",
+            "세상 모든 털복숭이에게 거부당하는 운명. 전 강아지와 고양이 알러지가 둘다있거든요. 저주받았죠.",
+            "휴지곽 내부에서 회의가 열렸습니다. 안건: ‘도망칠 방법 찾기’.",
+            "오늘 당신의 기분은 2겹 휴지. 겉은 단단해 보여도 속은 부드럽습니다.",
+            "휴지가 속삭입니다: ‘내겐 아직 2겹의 비밀이 남아있어…’",
+            "방금 뽑힌 휴지, 사실 어제 당신이 흘린 눈물을 기억하고 있어요.",
+            "오늘의 애정운: 휴지처럼 얇고 길게… 끊어지지 않길 바랍니다.",
+            "휴지곽이 속삭임: ‘나는 원래 티슈가 아니었다…’",
+            "이 속도면 곧 화장실 휴지도 정기구독해야 합니다."
+        ]
+//    private let humorMentions: [String] = [
+//        "Stop pulling me… my life is in shreds…",
+//        "The tissue box whispers: 'Save me…'",
+//        "Your rhythm is making even drummers jealous.",
+//        "Careful! The tissue wants to run away.",
+//        "The tissue just gasped for air.",
+//        "You thought it was over? Life, too, comes with refills.",
+//        "It appears when you need it most. That is the true purpose of tissue.",
+//        "What you pulled out isn’t tissue—it’s actually today’s fortune.",
+//        "Great fortune! Instead of winning the lottery, you’ll find your missing sock.",
+//        "The texture of this tissue feels especially soft. Today’s coffee is on the house.",
+//        "Warning: Your 'outside the blanket is dangerous' index has risen by 300%.",
+//        "Today’s lucky color is white. If your tissue isn’t white… be careful.",
+//        "Great fortune! Instead of winning the lottery, you’ll find your missing sock.",
+//        "Your wealth luck is rising! But every time you open your wallet, only dust will appear.",
+//        "Today you are destined to discover 'last year’s receipt' on your desk.",
+//        "The person you’ll meet today… is most likely the cat you ran into at the convenience store yesterday.",
+//        "Meow ^^!*",
+//        "Graduate school is like a tissue roll. There is an end, but even when you refill, there’s another end waiting.",
+//        "Fated to be rejected by all furry creatures. I’m allergic to both dogs and cats… I’m cursed.",
+//        "A meeting was just held inside the tissue box. Agenda: 'Find a way to escape.'",
+//        "Today your mood is like 2-ply tissue. Tough on the outside, but soft on the inside.",
+//        "The tissue whispers: 'I still have two layers of secrets left…'",
+//        "This sheet remembers the tears you shed yesterday.",
+//        "Today’s love fortune: thin and long like tissue… may it never tear.",
+//        "The tissue box whispers: 'I was never really tissue…'",
+//        "At this rate, you’ll need a subscription for toilet paper too."
+//    ]
     
     private let maxPullLength: CGFloat = 400 // 휴지 최대 뽑기 길이
     private let cutThreshold: CGFloat = 150  // 휴지 절단(분리) 임계값
@@ -1016,7 +1039,7 @@ struct TissueContentView: View {
             let hour = calendar.component(.hour, from: Date())
             let sourceMentions: [String]
             if hour >= 23 || hour < 7 {
-                sourceMentions = nightTimeMentions
+                sourceMentions = nightTimeMentions as! [String]
             } else {
                 sourceMentions = humorMentions
             }

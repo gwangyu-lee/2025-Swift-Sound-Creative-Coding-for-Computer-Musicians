@@ -21,7 +21,7 @@ struct MySplitView: View {
         "Cicada",
         "Annoying Kid",
         "Tissue",
-        "Saber",
+        "Lightsaber",
         "Settings",
         "About"
     ]
@@ -47,7 +47,7 @@ struct MySplitView: View {
                     CharacterView(sensorManager: sensorManagerTJ)
                 case "Tissue":
                     TissueContentView()
-                case "Saber":
+                case "Lightsaber":
                     SaberView()
                 case "Settings":
                     SettingsView()
