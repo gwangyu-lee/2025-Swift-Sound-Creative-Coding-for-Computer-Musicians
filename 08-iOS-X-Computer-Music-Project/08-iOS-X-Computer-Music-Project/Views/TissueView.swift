@@ -450,7 +450,7 @@ struct TissueContentView: View {
     @State private var isDragging = false // 사용자가 현재 드래그 중인지 여부
     @State private var animationPhase: AnimationPhase = .idle // 현재 애니메이션 단계
     
-    @State private var nightMessage: String? = nil // 밤에 표시할 멘트(이스터에그/유머)
+    @State private var nightMessage: LocalizedStringKey? = nil // 밤에 표시할 멘트(이스터에그/유머)
     @State private var pullCount: Int = 0 // 휴지 뽑기 누적 횟수
     @State private var colorChangeCount: Int = 0 // 색깔 변경 후 뽑은 횟수 (5번 카운트용)
     
@@ -464,26 +464,26 @@ struct TissueContentView: View {
     @State private var introMessageOffset: CGFloat = 0
     
     // 밤 시간대에 표시할 멘트 배열
-        private let nightTimeMentions: [String] = [
-            "이 시간엔… 자야 하지 않나요?",
-            "새벽 감성 좋아… 근데 눈 감고 느껴봐요.",
-            "휴지 말고 이불을 뽑으세요.",
-            "이쯤이면 당신도 알고 있을 거예요. 그만해야 할 시간이라는 걸.",
-            "이 시간엔 휴지도 졸려요.",
-            "우린 지금 새벽에… 휴지를 뽑고 있어요.",
-            "자자. 자요. 제발 자요.",
-            "지금… 당신 뒤에 졸음이 있어요.",
-            "그만 뽑아… 나 오늘 꿈에 나올 거야.",
-            "한 장 더 뽑으면 이불 깔아줄게.",
-            "그만 자요. 안 그러면 당신 꿈에 휴지 요정이 나타나 잔소리할 거예요.",
-            "이렇게 늦은 시간에 뽑는 휴지는… 사실 과거의 후회를 닦는 용도입니다.",
-            "이제 뽑으면 자동으로 영수증이 나올지도…",
-            "속보: 휴지, 주인의 손길을 피해 망명 시도.",
-            "이제 뽑은 건 휴지가 아니라… 인생의 잔여 털입니다.",
-            "휴지가 다 떨어지면, 그때 가서 잠들려나요?",
-            "이 시간에 깨어있는 건 고양이랑 당신뿐이에요. 야옹!",
-            "다음 장은 자동으로 코골이 효과가 들어갑니다."
-        ]
+//        private let nightTimeMentions: [String] = [
+//            "이 시간엔… 자야 하지 않나요?",
+//            "새벽 감성 좋아… 근데 눈 감고 느껴봐요.",
+//            "휴지 말고 이불을 뽑으세요.",
+//            "이쯤이면 당신도 알고 있을 거예요. 그만해야 할 시간이라는 걸.",
+//            "이 시간엔 휴지도 졸려요.",
+//            "우린 지금 새벽에… 휴지를 뽑고 있어요.",
+//            "자자. 자요. 제발 자요.",
+//            "지금… 당신 뒤에 졸음이 있어요.",
+//            "그만 뽑아… 나 오늘 꿈에 나올 거야.",
+//            "한 장 더 뽑으면 이불 깔아줄게.",
+//            "그만 자요. 안 그러면 당신 꿈에 휴지 요정이 나타나 잔소리할 거예요.",
+//            "이렇게 늦은 시간에 뽑는 휴지는… 사실 과거의 후회를 닦는 용도입니다.",
+//            "이제 뽑으면 자동으로 영수증이 나올지도…",
+//            "속보: 휴지, 주인의 손길을 피해 망명 시도.",
+//            "이제 뽑은 건 휴지가 아니라… 인생의 잔여 털입니다.",
+//            "휴지가 다 떨어지면, 그때 가서 잠들려나요?",
+//            "이 시간에 깨어있는 건 고양이랑 당신뿐이에요. 야옹!",
+//            "다음 장은 자동으로 코골이 효과가 들어갑니다."
+//        ]
     
 //    private let nightTimeMentions: [String] = [
 //        "At this hour… shouldn’t you be asleep?",
@@ -506,57 +506,88 @@ struct TissueContentView: View {
 //        "The next sheet comes with automatic snoring effects."
 //    ]
 //    
-//    private let nightTimeMentions: [LocalizedStringKey] = [
-//        "night_1",
-//        "night_2",
-//        "night_3",
-//        "night_4",
-//        "night_5",
-//        "night_6",
-//        "night_7",
-//        "night_8",
-//        "night_9",
-//        "night_10",
-//        "night_11",
-//        "night_12",
-//        "night_13",
-//        "night_14",
-//        "night_15",
-//        "night_16",
-//        "night_17",
-//        "night_18"
-//    ]
+    private let nightTimeMentions: [LocalizedStringKey] = [
+        "night_1",
+        "night_2",
+        "night_3",
+        "night_4",
+        "night_5",
+        "night_6",
+        "night_7",
+        "night_8",
+        "night_9",
+        "night_10",
+        "night_11",
+        "night_12",
+        "night_13",
+        "night_14",
+        "night_15",
+        "night_16",
+        "night_17",
+        "night_18"
+    ]
 
     
     // 유머 멘트 배열
-        private let humorMentions: [String] = [
-            "이제 그만 뽑아줘… 내 삶이 갈기갈기야…",
-            "휴지곽이 속삭임: '살려줘…'",
-            "당신의 리듬, 드러머가 질투함.",
-            "조심해요! 휴지가 도망가고 싶어해요.",
-            "방금 휴지가 숨을 헐떡였어요.",
-            "다 쓴 줄 알았지? 하지만 인생도 리필돼.",
-            "가장 필요한 순간에 나타나는 것. 그것이 휴지의 존재 이유.",
-            "당신이 뽑은 것은 휴지가 아니라, 사실 '오늘의 운세'였습니다.",
-            "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
-            "뽑은 휴지의 질감이 매우 부드럽습니다. 오늘 커피는 공짜입니다.",
-            "경고: 오늘 안에 겪을 '이불 밖은 위험해' 지수가 300% 상승했습니다.",
-            "오늘의 행운 색깔은 흰색입니다. 휴지 색깔이 흰색이 아니라면... 조심하세요.",
-            "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
-            "재물운 상승! 하지만 지갑을 열 때마다 먼지만 보게 될 것입니다.",
-            "오늘 당신의 책상 위에서 잃어버린 '작년의 영수증'을 발견할 운명입니다.",
-            "오늘 만날 사람은... 어제 편의점에서 마주친 그 고양이일 확률이 높습니다.",
-            "야옹^^!*",
-            "대학원은 휴지 심과 같아요. 끝은 있는데 리필해도 또 끝이 없죠.",
-            "세상 모든 털복숭이에게 거부당하는 운명. 전 강아지와 고양이 알러지가 둘다있거든요. 저주받았죠.",
-            "휴지곽 내부에서 회의가 열렸습니다. 안건: ‘도망칠 방법 찾기’.",
-            "오늘 당신의 기분은 2겹 휴지. 겉은 단단해 보여도 속은 부드럽습니다.",
-            "휴지가 속삭입니다: ‘내겐 아직 2겹의 비밀이 남아있어…’",
-            "방금 뽑힌 휴지, 사실 어제 당신이 흘린 눈물을 기억하고 있어요.",
-            "오늘의 애정운: 휴지처럼 얇고 길게… 끊어지지 않길 바랍니다.",
-            "휴지곽이 속삭임: ‘나는 원래 티슈가 아니었다…’",
-            "이 속도면 곧 화장실 휴지도 정기구독해야 합니다."
-        ]
+    
+    private let humorMentions: [LocalizedStringKey] = [
+        "humor_1",
+        "humor_2",
+        "humor_3",
+        "humor_4",
+        "humor_5",
+        "humor_6",
+        "humor_7",
+        "humor_8",
+        "humor_9",
+        "humor_10",
+        "humor_11",
+        "humor_12",
+        "humor_13",
+        "humor_14",
+        "humor_15",
+        "humor_16",
+        "humor_17",
+        "humor_18",
+        "humor_19",
+        "humor_20",
+        "humor_21",
+        "humor_22",
+        "humor_23",
+        "humor_24",
+        "humor_25",
+        "humor_26"
+    ]
+
+    
+//        private let humorMentions: [String] = [
+//            "이제 그만 뽑아줘… 내 삶이 갈기갈기야…",
+//            "휴지곽이 속삭임: '살려줘…'",
+//            "당신의 리듬, 드러머가 질투함.",
+//            "조심해요! 휴지가 도망가고 싶어해요.",
+//            "방금 휴지가 숨을 헐떡였어요.",
+//            "다 쓴 줄 알았지? 하지만 인생도 리필돼.",
+//            "가장 필요한 순간에 나타나는 것. 그것이 휴지의 존재 이유.",
+//            "당신이 뽑은 것은 휴지가 아니라, 사실 '오늘의 운세'였습니다.",
+//            "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
+//            "뽑은 휴지의 질감이 매우 부드럽습니다. 오늘 커피는 공짜입니다.",
+//            "경고: 오늘 안에 겪을 '이불 밖은 위험해' 지수가 300% 상승했습니다.",
+//            "오늘의 행운 색깔은 흰색입니다. 휴지 색깔이 흰색이 아니라면... 조심하세요.",
+//            "대길(大吉)! 오늘 복권 당첨 대신 잃어버린 양말을 찾을 운명입니다.",
+//            "재물운 상승! 하지만 지갑을 열 때마다 먼지만 보게 될 것입니다.",
+//            "오늘 당신의 책상 위에서 잃어버린 '작년의 영수증'을 발견할 운명입니다.",
+//            "오늘 만날 사람은... 어제 편의점에서 마주친 그 고양이일 확률이 높습니다.",
+//            "야옹^^!*",
+//            "대학원은 휴지 심과 같아요. 끝은 있는데 리필해도 또 끝이 없죠.",
+//            "세상 모든 털복숭이에게 거부당하는 운명. 전 강아지와 고양이 알러지가 둘다있거든요. 저주받았죠.",
+//            "휴지곽 내부에서 회의가 열렸습니다. 안건: ‘도망칠 방법 찾기’.",
+//            "오늘 당신의 기분은 2겹 휴지. 겉은 단단해 보여도 속은 부드럽습니다.",
+//            "휴지가 속삭입니다: ‘내겐 아직 2겹의 비밀이 남아있어…’",
+//            "방금 뽑힌 휴지, 사실 어제 당신이 흘린 눈물을 기억하고 있어요.",
+//            "오늘의 애정운: 휴지처럼 얇고 길게… 끊어지지 않길 바랍니다.",
+//            "휴지곽이 속삭임: ‘나는 원래 티슈가 아니었다…’",
+//            "이 속도면 곧 화장실 휴지도 정기구독해야 합니다."
+//        ]
 //    private let humorMentions: [String] = [
 //        "Stop pulling me… my life is in shreds…",
 //        "The tissue box whispers: 'Save me…'",
@@ -1037,13 +1068,18 @@ struct TissueContentView: View {
         if pullCount == nextHumorTrigger {
             let calendar = Calendar.current
             let hour = calendar.component(.hour, from: Date())
-            let sourceMentions: [String]
+            let sourceMentions: [LocalizedStringKey]
             if hour >= 23 || hour < 7 {
-                sourceMentions = nightTimeMentions as! [String]
+                sourceMentions = nightTimeMentions
             } else {
                 sourceMentions = humorMentions
             }
-            let allMentions = sourceMentions.filter { $0 != nightMessage }
+            let allMentions: [LocalizedStringKey]
+            if let current = nightMessage {
+                allMentions = sourceMentions.filter { $0 != current }
+            } else {
+                allMentions = sourceMentions
+            }
             if let random = allMentions.randomElement() {
                 nightMessage = random
                 // Blanket overlay and sound for specific message: now only set pending
@@ -1054,7 +1090,7 @@ struct TissueContentView: View {
                 if random == "이제 뽑으면 자동으로 영수증이 나올지도…" {
                     receiptPending = true
                 }
-                
+
                 // 털 이스터에그: 다음번에 뽑으면 털 나옴
                 if random == "이제 뽑은 건 휴지가 아니라… 인생의 잔여 털입니다." {
                     hairPending = true
@@ -1068,7 +1104,6 @@ struct TissueContentView: View {
                 }
                 // 털복숭이 알레르기 이스터에그: 강아지와 고양이 이모지 띄우기
                 if random == "세상 모든 털복숭이에게 거부당하는 운명. 전 강아지와 고양이 알러지가 둘다있거든요. 저주받았죠." {
-                    // 강아지 이모지
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                         withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
                             showDogEmoji = true
@@ -1079,7 +1114,6 @@ struct TissueContentView: View {
                             }
                         }
                     }
-                    // 고양이 이모지
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
                         withAnimation(.spring(response: 0.5, dampingFraction: 0.6)) {
                             showCatEmoji = true
@@ -1124,6 +1158,57 @@ struct TissueContentView: View {
         
         if minute == 0 {
             switch hour {
+                
+//            case 0:
+//                nightMessage = "12:00 AM — A new day has begun."
+//            case 1:
+//                nightMessage = "01:00 AM — Still awake?"
+//            case 2:
+//                nightMessage = "02:00 AM — It's really late tonight."
+//            case 3:
+//                nightMessage = "03:00 AM — Haven't gone to sleep yet?"
+//            case 4:
+//                nightMessage = "04:00 AM — The early morning is deepening."
+//            case 5:
+//                nightMessage = "05:00 AM — This isn't early morning, it's just morning. Admit it!"
+//            case 6:
+//                nightMessage = "06:00 AM — Alarm: 'Wake up.' Me: 'Haha, no way.'"
+//            case 7:
+//                nightMessage = "07:00 AM — Good morning!"
+//            case 8:
+//                nightMessage = "08:00 AM — Let's have a strong start today!"
+//            case 9:
+//                nightMessage = "09:00 AM — My brain is shouting 'Coffee!' Please pour caffeine instead of water."
+//            case 10:
+//                nightMessage = "10:00 AM — Perfect time to focus."
+//            case 11:
+//                nightMessage = "11:00 AM — Lunchtime is almost here!"
+//            case 12:
+//                nightMessage = "12:00 PM — Choosing lunch is humanity's eternal dilemma. Still deciding?"
+//            case 13:
+//                nightMessage = "01:00 PM — Sleepiness vs Coffee: the winner is always the bed."
+//            case 14:
+//                nightMessage = "02:00 PM — Time for a wake-up stretch! (But your mind is already in bed.)"
+//            case 15:
+//                nightMessage = "03:00 PM — If sleepy, close your eyes and call it 'meditation.' If caught, just say 'thinking.'"
+//            case 16:
+//                nightMessage = "04:00 PM — While the world sleeps, you are the only awake being in this universe."
+//            case 17:
+//                nightMessage = "05:00 PM — It's almost time to leave work."
+//            case 18:
+//                nightMessage = "06:00 PM — Good job today."
+//            case 19:
+//                nightMessage = "07:00 PM — Did you enjoy your dinner?"
+//            case 20:
+//                nightMessage = "08:00 PM — A relaxing evening time."
+//            case 21:
+//                nightMessage = "09:00 PM — Time to wrap up the day."
+//            case 22:
+//                nightMessage = "10:00 PM — Finish your fridge exploration early and head straight to bed."
+//            case 23:
+//                nightMessage = "11:00 PM — Put your phone down! The tissue says, 'Please go to sleep!'"
+
+                
             case 0:
                 nightMessage = "00:00 AM — 새로운 하루가 시작됐어요."
             case 1:

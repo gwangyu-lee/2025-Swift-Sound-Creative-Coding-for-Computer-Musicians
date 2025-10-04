@@ -47,8 +47,7 @@ This method can create everything from simple sine waves to complex, evolving ti
                 .bold()
                 .listRowSeparator(.hidden)
                 .padding(0)
-            Text("The carrier is the base waveform we actually hear. "
-                 + "Here, an 8 Hz sine wave is used as the carrier signal.")
+            Text("The carrier is the base waveform we actually hear. Here, an 8 Hz sine wave is used as the carrier signal.")
             .font(.body)
             .listRowSeparator(.hidden)
             
@@ -60,9 +59,7 @@ This method can create everything from simple sine waves to complex, evolving ti
                 .listRowSeparator(.hidden)
                 .padding(0)
             
-            Text("The modulator controls the frequency of the carrier. "
-                 + "In this example, a 1 Hz sine wave modulates the carrier, "
-                 + "causing its frequency to oscillate back and forth.")
+            Text("The modulator controls the frequency of the carrier. In this example, a 1 Hz sine wave modulates the carrier, causing its frequency to oscillate back and forth.")
             .font(.body)
             .listRowSeparator(.hidden)
             
